@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cbflrfaf28rl8"]
+
+[ext_resource type="PackedScene" uid="uid://c4cu5mneddvuy" path="res://scenes/chest.tscn" id="1_jp1fc"]
+[ext_resource type="Script" uid="uid://cw2fp0uu0831t" path="res://scripts/chest_entity.gd" id="1_n4mx6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n4mx6"]
+
+[node name="ChestEntity" type="Node2D" unique_id=763314863]
+script = ExtResource("1_n4mx6")
+
+[node name="Chest" parent="." unique_id=788818176 instance=ExtResource("1_jp1fc")]
+
+[node name="InteractionSensor" type="Area2D" parent="." unique_id=555752846]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionSensor" unique_id=1103212009]
+shape = SubResource("CircleShape2D_n4mx6")

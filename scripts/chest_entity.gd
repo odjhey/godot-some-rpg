@@ -1,0 +1,24 @@
+extends Node2D
+
+@export var entity_id : int
+@export var game_state : GameState
+@onready var interaction_sensor : Area2D = $InteractionSensor
+
+func _ready():
+	# create game state entity
+	if entity_id == 0:
+		entity_id = game_state.create_entity(self)
+	
+	interaction_sensor.area_entered.connect(on_area_entered)
+	interaction_sensor.area_exited.connect(on_area_exited)
+
+func on_area_entered(area: Area2D):
+	# todo find a way to know if its a player
+	game_state.tag_entity(&"in_player_range", entity_id)
+	print("entered")
+
+
+func on_area_exited(area: Area2D):
+	# todo find a way to know if its a player
+	game_state.untag_entity(&"in_player_range", entity_id)
+	print("exited")

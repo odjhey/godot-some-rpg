@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://des7cdha3w53"]
+
+[ext_resource type="Script" uid="uid://dl6k01ft6nxlu" path="res://scripts/level_1.gd" id="1_5xbjy"]
+[ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="1_014kd"]
+[ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state.gd" id="2_bswci"]
+[ext_resource type="PackedScene" uid="uid://cbflrfaf28rl8" path="res://scenes/chest_entity.tscn" id="3_rus8k"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gkh53"]
+
+[node name="Level1" type="Node" unique_id=2069936512]
+script = ExtResource("1_5xbjy")
+
+[node name="GameState" type="Node" parent="." unique_id=1833307047]
+script = ExtResource("2_bswci")
+metadata/_custom_type_script = "uid://6y1vo6m6hl22"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=780091674]
+position = Vector2(0, 594)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=88984762]
+shape = SubResource("WorldBoundaryShape2D_gkh53")
+
+[node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state") instance=ExtResource("1_014kd")]
+position = Vector2(2, 2)
+game_state = NodePath("../GameState")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=961323937]
+position = Vector2(210, 370)
+
+[node name="ChestEntity" parent="." unique_id=763314863 node_paths=PackedStringArray("game_state") instance=ExtResource("3_rus8k")]
+position = Vector2(472, 514)
+game_state = NodePath("../GameState")
+
+[node name="Label" type="Label" parent="." unique_id=824872549]
+offset_left = -220.0
+offset_top = 176.0
+offset_right = -180.0
+offset_bottom = 199.0
+text = "hello world"
