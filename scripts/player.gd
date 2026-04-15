@@ -26,7 +26,7 @@ func _physics_process(delta):
 	# handle jump
 	if Input.is_action_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	if Input.is_action_pressed("interact"):
+	if Input.is_action_just_released("interact"):
 		var in_range = game_state.get_entity_tags_by_tag(&"in_player_range")
 		if not in_range.is_empty():
 			# take the first one that we made contact with
@@ -40,4 +40,5 @@ func _physics_process(delta):
 	move_and_slide()
 
 func interact(_entity_id: int):
+	game_state.send_interact(entity_id, _entity_id)
 	print("interact with ", _entity_id)

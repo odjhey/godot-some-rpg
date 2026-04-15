@@ -21,7 +21,7 @@ position = Vector2(0, 594)
 shape = SubResource("WorldBoundaryShape2D_gkh53")
 
 [node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state") instance=ExtResource("1_014kd")]
-position = Vector2(2, 2)
+position = Vector2(16, 16)
 game_state = NodePath("../GameState")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=961323937]

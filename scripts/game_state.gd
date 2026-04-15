@@ -7,6 +7,8 @@ var entity_tags : Dictionary[StringName, Variant]
 
 var next_entity_id : int = 1
 
+signal interact(from_entity_id: int, to_entity_id: int)
+
 func create_entity(node: Node) -> int:
 	var entity_id = next_entity_id
 	entities[next_entity_id] = true
@@ -33,3 +35,7 @@ func untag_entity(tag_name: StringName, entity_id: int):
 
 func erase_entity():
 	pass
+
+# see if we can even create signals as a wrapper of game state, to keep this pure data
+func send_interact(from_entity_id, to_entity_id):
+	interact.emit(from_entity_id, to_entity_id)

@@ -1,3 +1,4 @@
+class_name Chest
 extends Node2D
 
 enum ChestState {Open, Close}
@@ -11,6 +12,6 @@ func open():
 	open_sprite.visible = true
 
 func close():
-	state = ChestState.Open
+	state = ChestState.Close
 	close_sprite.visible = true
 	open_sprite.visible = false
