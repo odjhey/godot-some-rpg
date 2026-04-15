@@ -40,5 +40,5 @@ func _physics_process(delta):
 	move_and_slide()
 
 func interact(_entity_id: int):
-	game_state.send_interact(entity_id, _entity_id)
 	print("interact with ", _entity_id)
+	game_state.send_interact(entity_id, _entity_id)

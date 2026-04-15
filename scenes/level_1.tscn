@@ -37,3 +37,11 @@ offset_top = 176.0
 offset_right = -180.0
 offset_bottom = 199.0
 text = "hello world"
+
+[node name="ChestEntity2" parent="." unique_id=1486545561 node_paths=PackedStringArray("game_state") instance=ExtResource("3_rus8k")]
+position = Vector2(-194, 508)
+game_state = NodePath("../GameState")
+
+[node name="ChestEntity3" parent="." unique_id=1499131308 node_paths=PackedStringArray("game_state") instance=ExtResource("3_rus8k")]
+position = Vector2(500, 486)
+game_state = NodePath("../GameState")
