@@ -14,3 +14,10 @@ script = ExtResource("1_n4mx6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionSensor" unique_id=1103212009]
 shape = SubResource("CircleShape2D_n4mx6")
+
+[node name="InteractionHint" type="Label" parent="." unique_id=1329894293]
+offset_top = -102.0
+offset_right = 40.0
+offset_bottom = -68.0
+theme_override_font_sizes/font_size = 24
+text = "E"

@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const JUMP_VELOCITY = -500.0
+const JUMP_VELOCITY = -1000.0
 const SPEED = 300
 
 @export var game_state : GameState

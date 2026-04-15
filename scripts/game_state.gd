@@ -11,7 +11,9 @@ var entity_tags : Dictionary[StringName, Dictionary]
 # we may need another global_uid type of thing to be safer, like "level1/chest1" or something
 var next_entity_id : int = 1
 
-signal data_change(entity_id: int, new_data: Dictionary)
+# @todod rename to *changed
+signal entity_data_changed(entity_id: int, new_data: Dictionary)
+signal tag_changed(tag_name: StringName, entity_id: int)
 
 func create_entity(node: Node, initial_state: Dictionary = {}) -> int:
 	var entity_id = next_entity_id
@@ -34,6 +36,7 @@ func tag_entity(tag_name: StringName, entity_id: int):
 	if not entity_tags.has(tag_name):
 		entity_tags[tag_name] = {}
 	entity_tags[tag_name][entity_id] = true
+	tag_changed.emit(tag_name, entity_id)
 
 func get_entity_tags_by_tag(tag_name: StringName):
 	if entity_tags.has(tag_name):
@@ -45,8 +48,10 @@ func untag_entity(tag_name: StringName, entity_id: int):
 		return
 	var tags : Dictionary = entity_tags[tag_name]
 	tags.erase(entity_id)
+	tag_changed.emit(tag_name, entity_id)
 
 # see if we can even create signals as a wrapper of game state, to keep this pure data
+# this should be extracted, as this i think is not needed to be "serialized" for saving and thus should not be in the game_state? but then again, &"in_range" is not needed to be saved tho, hmmm
 func send_interact(from_entity_id, to_entity_id):
 	var node_ref = entity_nodes[to_entity_id]
 	if node_ref == null:
@@ -62,4 +67,4 @@ func patch_entity_data(entity_id, new_kvs: Dictionary):
 	var data: Dictionary = entity_datas[entity_id]
 	for k in new_kvs:
 		data[k] = new_kvs[k]
-	data_change.emit(entity_id, data)
+	entity_data_changed.emit(entity_id, data)
