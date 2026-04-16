@@ -1,3 +1,4 @@
+class_name ChestEntity
 extends Node2D
 
 @export var entity_id : int

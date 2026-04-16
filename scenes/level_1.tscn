@@ -14,10 +14,10 @@ script = ExtResource("1_5xbjy")
 script = ExtResource("2_bswci")
 metadata/_custom_type_script = "uid://6y1vo6m6hl22"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=780091674]
+[node name="Floor" type="StaticBody2D" parent="." unique_id=780091674]
 position = Vector2(0, 594)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=88984762]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=88984762]
 shape = SubResource("WorldBoundaryShape2D_gkh53")
 
 [node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state") instance=ExtResource("1_014kd")]

@@ -16,6 +16,8 @@ script = ExtResource("1_n4mx6")
 shape = SubResource("CircleShape2D_n4mx6")
 
 [node name="InteractionHint" type="Label" parent="." unique_id=1329894293]
+visible = false
+z_index = 99
 offset_top = -102.0
 offset_right = 40.0
 offset_bottom = -68.0

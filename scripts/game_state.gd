@@ -1,6 +1,9 @@
 class_name GameState
 extends Node
 
+# @todo, maybe rename from entity_id to runtime_entity_id?
+# @todo, consider using a class_name GameRuntime, but currently unclear how to separate
+
 var entities : Dictionary[int, bool] = {}
 # @todo, we want to persist this so replace key with global_uid thing
 var entity_datas : Dictionary[int, Dictionary]
