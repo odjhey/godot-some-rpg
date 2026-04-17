@@ -11,9 +11,10 @@ var entity: LeverEntity
 func _ready():
 	game_state = game_state_node.context
 	if entity_id == 0:
-		entity = LeverEntity.new(game_state, {
+		entity = LeverEntity.new(game_state, 
+		connected_door.entity_id,
+		{
 			state = LeverEntity.LeverState.Deactivated,
-			connected_door_entity_id = connected_door.entity_id
 		})
 		entity_id = entity.entity_id
 		game_state.register_entity(entity_id, self)

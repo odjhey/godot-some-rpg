@@ -4,11 +4,18 @@ extends Entity
 enum LeverState {Deactivated, Activated}
 signal visual_update_requested(state: LeverState)
 
-func _init(p_game_state: GameStateContext, p_initial_state: Dictionary):
-	var new_state = {}
+func _init(p_game_state: GameStateContext, p_connected_door_entity_id: int, p_initial_state: Dictionary):
+	var new_state = {
+		connected_door_entity_id = p_connected_door_entity_id
+		}
 	new_state.merge(p_initial_state, true)
 	super(p_game_state, new_state)
 	game_state.entity_data_changed.connect(on_gs_data_changed)
+
+
+func is_activated():
+	var data = game_state.get_entity_data(entity_id)
+	return data.get("state") == LeverState.Activated
 
 func on_interact(_from_entity_id: int, to_entity_id: int):
 	if to_entity_id != entity_id:
