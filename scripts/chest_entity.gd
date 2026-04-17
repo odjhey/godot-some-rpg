@@ -12,7 +12,7 @@ func _ready():
 	game_state = game_state_node.context
 	# create game state entity
 	if entity_id == 0:
-		entity_id = game_state.create_entity(self, { state = Chest.ChestState.Close })
+		entity_id = game_state.create_entity_and_register(self, { state = Chest.ChestState.Close })
 	
 	game_state.entity_data_changed.connect(on_gs_data_changed)
 	game_state.tag_changed.connect(on_tag_changed)

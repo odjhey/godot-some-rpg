@@ -18,14 +18,21 @@ var next_entity_id : int = 1
 signal entity_data_changed(entity_id: int, new_data: Dictionary)
 signal tag_changed(tag_name: StringName, entity_id: int)
 
-func create_entity(node: Node, initial_state: Dictionary = {}) -> int:
+func create_entity_and_register(p_node: Node, p_initial_state: Dictionary = {}) -> int:
+	var entity_id = create_entity(p_initial_state)
+	register_entity(entity_id, p_node)
+	return entity_id
+
+func create_entity(initial_state: Dictionary = {}) -> int:
 	var entity_id = next_entity_id
 	entities[entity_id] = true
-	entity_nodes[entity_id] = weakref(node)
 	entity_datas[entity_id] = initial_state
 
 	next_entity_id += 1
 	return entity_id
+
+func register_entity(p_entity_id: int, p_node: Node):
+	entity_nodes[p_entity_id] = weakref(p_node)
 
 # @todo use this in _exit_tree() of nodes
 func erase_entity(entity_id: int):

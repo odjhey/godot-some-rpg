@@ -13,7 +13,7 @@ enum LeverState {Deactivated, Activated}
 func _ready():
 	game_state = game_state_node.context
 	if entity_id == 0:
-		entity_id = game_state.create_entity(self, {state = LeverState.Deactivated})
+		entity_id = game_state.create_entity_and_register(self, {state = LeverState.Deactivated})
 	game_state.entity_data_changed.connect(on_gs_data_changed)
 
 	interaction_sensor.area_entered.connect(on_area_entered)
