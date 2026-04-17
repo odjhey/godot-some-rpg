@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="1_jm1iu"]
 [ext_resource type="PackedScene" uid="uid://c4cu5mneddvuy" path="res://scenes/chest.tscn" id="2_pbc48"]
-[ext_resource type="PackedScene" uid="uid://cbflrfaf28rl8" path="res://scenes/chest_entity.tscn" id="3_eqxsl"]
+[ext_resource type="PackedScene" uid="uid://cbflrfaf28rl8" path="res://scenes/chest_node.tscn" id="3_eqxsl"]
 [ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="3_pbc48"]
 [ext_resource type="Script" uid="uid://d2v0ra47iwli1" path="res://scripts/chest_door.gd" id="4_b4j7a"]
 

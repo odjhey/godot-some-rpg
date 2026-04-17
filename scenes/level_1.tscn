@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dl6k01ft6nxlu" path="res://scripts/level_1.gd" id="1_5xbjy"]
 [ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="1_014kd"]
 [ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="2_bswci"]
-[ext_resource type="PackedScene" uid="uid://cbflrfaf28rl8" path="res://scenes/chest_entity.tscn" id="3_rus8k"]
+[ext_resource type="PackedScene" uid="uid://cbflrfaf28rl8" path="res://scenes/chest_node.tscn" id="3_rus8k"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gkh53"]
 

@@ -10,8 +10,9 @@ func _init(p_game_state: GameStateContext, p_connected_door_entity_id: int, p_in
 		}
 	new_state.merge(p_initial_state, true)
 	super(p_game_state, new_state)
-	game_state.entity_data_changed.connect(on_gs_data_changed)
 
+func wire_signals():
+	game_state.entity_data_changed.connect(on_gs_data_changed)
 
 func is_activated():
 	var data = game_state.get_entity_data(entity_id)
