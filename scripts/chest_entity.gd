@@ -31,12 +31,12 @@ func on_interact(_from_entity_id: int, to_entity_id: int):
 
 # @todo rename use of _ here
 func on_gs_data_changed(_entity_id: int, new_data: Dictionary):
-	if (entity_id == _entity_id):
-		print("----- on_gs_change", new_data)
-		if new_data.state == Chest.ChestState.Open:
-			chest.open()
-		else:
-			chest.close()
+	if (entity_id != _entity_id):
+		return
+	if new_data.state == Chest.ChestState.Open:
+		chest.open()
+	else:
+		chest.close()
 func on_tag_changed(tag_name: StringName, _entity_id: int):
 	if tag_name != &"in_player_range":
 		return
