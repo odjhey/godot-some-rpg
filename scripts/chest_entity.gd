@@ -2,12 +2,14 @@ class_name ChestEntity
 extends Node2D
 
 @export var entity_id : int
-@export var game_state : GameState
+@export var game_state_node : GameState
+var game_state : GameStateContext
 @onready var interaction_sensor : Area2D = $InteractionSensor
 @onready var interaction_hint : Label = $InteractionHint
 @onready var chest: Chest = $Chest
 
 func _ready():
+	game_state = game_state_node.context
 	# create game state entity
 	if entity_id == 0:
 		entity_id = game_state.create_entity(self, { state = Chest.ChestState.Close })

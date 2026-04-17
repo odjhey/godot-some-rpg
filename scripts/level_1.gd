@@ -7,6 +7,5 @@ extends Node
 func _ready():
 	pass
 
-func _process(delta):
-	label.text = str(game_state.entity_tags)
-
+func _process(_delta):
+	label.text = str(game_state.context.entity_tags)

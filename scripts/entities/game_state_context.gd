@@ -1,5 +1,5 @@
-class_name GameState
-extends Node
+class_name GameStateContext
+extends RefCounted
 
 # @todo, maybe rename from entity_id to runtime_entity_id?
 # @todo, consider using a class_name GameRuntime, but currently unclear how to separate

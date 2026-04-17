@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dl6k01ft6nxlu" path="res://scripts/level_1.gd" id="1_5xbjy"]
 [ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="1_014kd"]
-[ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state.gd" id="2_bswci"]
+[ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="2_bswci"]
 [ext_resource type="PackedScene" uid="uid://cbflrfaf28rl8" path="res://scenes/chest_entity.tscn" id="3_rus8k"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gkh53"]
@@ -20,16 +20,16 @@ position = Vector2(0, 594)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=88984762]
 shape = SubResource("WorldBoundaryShape2D_gkh53")
 
-[node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state") instance=ExtResource("1_014kd")]
+[node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("1_014kd")]
 position = Vector2(16, 16)
-game_state = NodePath("../GameState")
+game_state_node = NodePath("../GameState")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=961323937]
 position = Vector2(210, 370)
 
-[node name="ChestEntity" parent="." unique_id=763314863 node_paths=PackedStringArray("game_state") instance=ExtResource("3_rus8k")]
+[node name="ChestEntity" parent="." unique_id=763314863 node_paths=PackedStringArray("game_state_node") instance=ExtResource("3_rus8k")]
 position = Vector2(472, 514)
-game_state = NodePath("../GameState")
+game_state_node = NodePath("../GameState")
 
 [node name="Label" type="Label" parent="." unique_id=824872549]
 offset_left = -220.0
@@ -38,10 +38,10 @@ offset_right = -180.0
 offset_bottom = 199.0
 text = "hello world"
 
-[node name="ChestEntity2" parent="." unique_id=1486545561 node_paths=PackedStringArray("game_state") instance=ExtResource("3_rus8k")]
+[node name="ChestEntity2" parent="." unique_id=1486545561 node_paths=PackedStringArray("game_state_node") instance=ExtResource("3_rus8k")]
 position = Vector2(-194, 508)
-game_state = NodePath("../GameState")
+game_state_node = NodePath("../GameState")
 
-[node name="ChestEntity3" parent="." unique_id=1499131308 node_paths=PackedStringArray("game_state") instance=ExtResource("3_rus8k")]
+[node name="ChestEntity3" parent="." unique_id=1499131308 node_paths=PackedStringArray("game_state_node") instance=ExtResource("3_rus8k")]
 position = Vector2(572, 514)
-game_state = NodePath("../GameState")
+game_state_node = NodePath("../GameState")

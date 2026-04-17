@@ -3,13 +3,15 @@ extends CharacterBody2D
 const JUMP_VELOCITY = -1000.0
 const SPEED = 300
 
-@export var game_state : GameState
+@export var game_state_node : GameState
+var game_state : GameStateContext
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var weight := 2
 var entity_id : int
 
 
 func _ready():
+	game_state = game_state_node.context
 	# create game state entity
 	if entity_id == 0:
 		entity_id = game_state.create_entity(self)

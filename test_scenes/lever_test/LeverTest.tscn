@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bf8ek5jntfibs"]
 
 [ext_resource type="Script" uid="uid://dis0ciwkd4sy1" path="res://scripts/door_entity.gd" id="1_2gngq"]
+[ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="1_6oxeg"]
 [ext_resource type="PackedScene" uid="uid://c4cu5mneddvuy" path="res://scenes/chest.tscn" id="2_gjltx"]
 [ext_resource type="Script" uid="uid://cjyrh6n5lslte" path="res://scripts/lever_entity.gd" id="2_uc4t2"]
-[ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state.gd" id="4_xts8c"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="5_px1b0"]
 [ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="6_6oxeg"]
 
@@ -14,8 +14,8 @@ radius = 115.00435
 
 [node name="LeverTest" type="Node2D" unique_id=500594687]
 
-[node name="GameState" type="Node" parent="." unique_id=1970278286]
-script = ExtResource("4_xts8c")
+[node name="GameState" type="Node" parent="." unique_id=900824343]
+script = ExtResource("1_6oxeg")
 metadata/_custom_type_script = "uid://6y1vo6m6hl22"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1890268779]
@@ -26,18 +26,18 @@ shape = SubResource("WorldBoundaryShape2D_scdb6")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1684233474]
 
-[node name="DoorEntity" type="Node2D" parent="." unique_id=1006822205 node_paths=PackedStringArray("game_state")]
+[node name="DoorEntity" type="Node2D" parent="." unique_id=1006822205 node_paths=PackedStringArray("game_state_node")]
 position = Vector2(442, 223)
 script = ExtResource("1_2gngq")
-game_state = NodePath("../GameState")
+game_state_node = NodePath("../GameState")
 metadata/_custom_type_script = "uid://dis0ciwkd4sy1"
 
 [node name="Chest" parent="DoorEntity" unique_id=788818176 instance=ExtResource("2_gjltx")]
 
-[node name="LeverEntity" type="Node2D" parent="." unique_id=1238160771 node_paths=PackedStringArray("game_state", "connected_door")]
+[node name="LeverEntity" type="Node2D" parent="." unique_id=1238160771 node_paths=PackedStringArray("game_state_node", "connected_door")]
 position = Vector2(-269, 220)
 script = ExtResource("2_uc4t2")
-game_state = NodePath("../GameState")
+game_state_node = NodePath("../GameState")
 connected_door = NodePath("../DoorEntity")
 metadata/_custom_type_script = "uid://cjyrh6n5lslte"
 
@@ -49,5 +49,5 @@ texture = ExtResource("5_px1b0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeverEntity/InteractionSensor" unique_id=238840243]
 shape = SubResource("CircleShape2D_px1b0")
 
-[node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state") instance=ExtResource("6_6oxeg")]
-game_state = NodePath("../GameState")
+[node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("6_6oxeg")]
+game_state_node = NodePath("../GameState")
