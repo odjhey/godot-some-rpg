@@ -1,0 +1,15 @@
+
+
+test : levers should open connected doors
+setup
+	# arrange
+	new gamestate
+	new door
+	new lever(door)
+
+	# act
+	lever.on_interact(gamestate, lever.entity_id)
+
+	# assert
+	door.state == open
+
