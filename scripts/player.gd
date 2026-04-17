@@ -17,6 +17,7 @@ func _ready():
 	if entity_id == 0:
 		entity = PlayerEntity.new(game_state, {})
 		entity_id = entity.entity_id
+	game_state_node.register_node(entity_id, self)
 
 func apply_gravity(delta, _velocity: Vector2, is_grounded: bool) -> Vector2:
 	if not is_grounded:
