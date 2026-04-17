@@ -31,6 +31,8 @@ func create_entity(initial_state: Dictionary = {}) -> int:
 	next_entity_id += 1
 	return entity_id
 
+func get_entity_instance(p_entity_id: int) -> Variant:
+	return entity_instances[p_entity_id].get_ref()
 func register_entity_instance(p_entity_id: int, p_entity_instance: Variant):
 	entity_instances[p_entity_id] = weakref(p_entity_instance)
 
