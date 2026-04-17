@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://ckiwiaewefuw6"]
+
+[ext_resource type="Script" uid="uid://bi5le563als7i" path="res://test_scenes/projectile_test/gun.gd" id="1_orcvb"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_wkcye"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_78k37"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_orcvb"]
+
+[node name="ProjectileTest" type="Node" unique_id=1386917115]
+
+[node name="Gun" type="Node2D" parent="." unique_id=313955927]
+position = Vector2(238, 279)
+script = ExtResource("1_orcvb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Gun" unique_id=244564980]
+scale = Vector2(1, 0.234375)
+texture = ExtResource("1_wkcye")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Gun" unique_id=2102431626]
+position = Vector2(51.000004, -7.000004)
+scale = Vector2(0.13281256, 0.25781256)
+texture = ExtResource("1_wkcye")
+
+[node name="Wall" type="StaticBody2D" parent="." unique_id=1391608821]
+position = Vector2(1045, 122)
+rotation = -1.3177236
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall" unique_id=382514557]
+shape = SubResource("WorldBoundaryShape2D_78k37")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=29535259]
+position = Vector2(303, 575)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=96453016]
+shape = SubResource("WorldBoundaryShape2D_orcvb")
