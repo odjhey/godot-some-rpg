@@ -5,17 +5,19 @@ enum ChestState {Open, Close}
 signal visual_update_state_changed(state: ChestState)
 signal visual_update_player_is_nearby(value: bool)
 
+# @todo, do we follow golang standard for instance functions, first arg is the self ref?
 func on_interact(_from_entity_id: int, to_entity_id: int):
-	if (to_entity_id == entity_id):
-		var data = game_state.get_entity_data(entity_id)
-		var new_data = {}
-		print("pre patch", data)
-		if data.state == Chest.ChestState.Open:
-			new_data = {state = Chest.ChestState.Close}
-		else:
-			new_data = {state = Chest.ChestState.Open}
-		print("patch to", new_data)
-		game_state.patch_entity_data(entity_id, new_data)
+	if (to_entity_id != entity_id):
+		return
+	var data = game_state.get_entity_data(entity_id)
+	var new_data = {}
+	print("pre patch", data)
+	if data.state == Chest.ChestState.Open:
+		new_data = {state = Chest.ChestState.Close}
+	else:
+		new_data = {state = Chest.ChestState.Open}
+	print("patch to", new_data)
+	game_state.patch_entity_data(entity_id, new_data)
 
 # @override
 func wire_signals():

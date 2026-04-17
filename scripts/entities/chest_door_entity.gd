@@ -13,9 +13,13 @@ func _init(p_game_state: GameStateContext, p_connected_chests_entity_ids: Array[
 func wire_signals():
 	game_state.entity_data_changed.connect(on_gs_data_changed)
 
+func is_open() -> bool:
+	var own_data = game_state.get_entity_data(entity_id)
+	return own_data.get("state") == ChestEntity.ChestState.Open
+
 func on_gs_data_changed(p_entity_id: int, _new_data):
 	var own_data = game_state.get_entity_data(entity_id)
-	var connected_chest_ids = own_data.get("connected_chests_entity_ids")
+	var connected_chest_ids: Array[int] = own_data.get("connected_chests_entity_ids")
 
 	var is_chest_connected = false
 	for cid in connected_chest_ids:
@@ -28,13 +32,12 @@ func on_gs_data_changed(p_entity_id: int, _new_data):
 	var open_chest_count = 0
 	for cid in connected_chest_ids:
 		var c_data = game_state.get_entity_data(cid)
-		if c_data.get("state") == Chest.ChestState.Open:
+		if c_data.get("state") == ChestEntity.ChestState.Open:
 			open_chest_count += 1
 	
-	print("open count ", open_chest_count)
-	if open_chest_count >= 3:
-		game_state.patch_entity_data(entity_id, { state = Chest.ChestState.Open })
-		visual_update_requested.emit(Chest.ChestState.Open)
+	if open_chest_count >= connected_chest_ids.size():
+		game_state.patch_entity_data(entity_id, { state = ChestEntity.ChestState.Open })
+		visual_update_requested.emit(ChestEntity.ChestState.Open)
 	else:
-		game_state.patch_entity_data(entity_id, { state = Chest.ChestState.Close })
-		visual_update_requested.emit(Chest.ChestState.Close)
+		game_state.patch_entity_data(entity_id, { state = ChestEntity.ChestState.Close })
+		visual_update_requested.emit(ChestEntity.ChestState.Close)
