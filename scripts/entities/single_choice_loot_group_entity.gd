@@ -10,6 +10,10 @@ func _init(p_game_state: GameStateContext, p_loots: Array[int], p_initial_state:
 		}
 	new_state.merge(p_initial_state, true)
 	super(p_game_state, new_state)
+	# @todo, lets see if we can do something about patch after create
+	for loot_item in p_loots:
+		game_state.patch_entity_data(loot_item, {group = entity_id})
+
 
 func can_choose() -> bool:
 	var data = game_state.get_entity_data(entity_id)

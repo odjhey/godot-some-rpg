@@ -12,10 +12,6 @@ func test_choose_loot():
 		loot3.entity_id,
 		], {})
 
-	# @todo see how we can do this as init
-	LootItemEntity.set_group(gs, loot1.entity_id, choose_one_loot_group.entity_id)
-	LootItemEntity.set_group(gs, loot2.entity_id, choose_one_loot_group.entity_id)
-	LootItemEntity.set_group(gs, loot3.entity_id, choose_one_loot_group.entity_id)
 
 	var player = PlayerEntity.new(gs, {})
 
