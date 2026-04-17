@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://dfvcjchm52my4"]
 
 [ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="1_hpidm"]
-[ext_resource type="Script" uid="uid://b3wcroc3be223" path="res://scripts/portal_a.gd" id="1_p757m"]
-[ext_resource type="Script" uid="uid://dqa7x3sgu80ew" path="res://scripts/portal_b.gd" id="3_66ruy"]
+[ext_resource type="Script" uid="uid://b3wcroc3be223" path="res://scripts/portal.gd" id="1_p757m"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_i8lqj"]
 [ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="5_i8lqj"]
 
@@ -12,15 +11,13 @@ size = Vector2(162, 84)
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8lqj"]
 radius = 131.24405
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8lqj"]
-size = Vector2(164, 100)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_dadc4"]
-radius = 162.49615
-
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_i8lqj"]
 
 [node name="PortalTest" type="Node" unique_id=1915016474]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=575841007]
+position = Vector2(200, 55)
+zoom = Vector2(0.5, 0.5)
 
 [node name="GameState" type="Node" parent="." unique_id=403962225]
 script = ExtResource("1_hpidm")
@@ -30,11 +27,8 @@ metadata/_custom_type_script = "uid://6y1vo6m6hl22"
 position = Vector2(200, 55)
 game_state_node = NodePath("../GameState")
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=575841007]
-zoom = Vector2(0.5, 0.5)
-
 [node name="PortalA" type="Node2D" parent="." unique_id=704119327 node_paths=PackedStringArray("game_state_node", "portal_b")]
-position = Vector2(199, 324)
+position = Vector2(-413, 324)
 script = ExtResource("1_p757m")
 game_state_node = NodePath("../GameState")
 portal_b = NodePath("../PortalB")
@@ -53,25 +47,25 @@ shape = SubResource("RectangleShape2D_66ruy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PortalA/InteractionSensor" unique_id=569638406]
 shape = SubResource("CircleShape2D_i8lqj")
 
-[node name="PortalB" type="Node2D" parent="." unique_id=1340148473 node_paths=PackedStringArray("game_state_node", "portal_a")]
-position = Vector2(926, 318)
-script = ExtResource("3_66ruy")
+[node name="PortalB" type="Node2D" parent="." unique_id=589777107 node_paths=PackedStringArray("game_state_node", "portal_b")]
+position = Vector2(1005, 324)
+script = ExtResource("1_p757m")
 game_state_node = NodePath("../GameState")
-portal_a = NodePath("../PortalA")
-metadata/_custom_type_script = "uid://dqa7x3sgu80ew"
+portal_b = NodePath("../PortalA")
+metadata/_custom_type_script = "uid://b3wcroc3be223"
 
-[node name="Sprite2D" type="Sprite2D" parent="PortalB" unique_id=1676027986]
+[node name="Sprite2D" type="Sprite2D" parent="PortalB" unique_id=1120277857]
 texture = ExtResource("3_i8lqj")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="PortalB" unique_id=91450851]
+[node name="StaticBody2D" type="StaticBody2D" parent="PortalB" unique_id=642883559]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalB/StaticBody2D" unique_id=110180214]
-shape = SubResource("RectangleShape2D_i8lqj")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalB/StaticBody2D" unique_id=1739223916]
+shape = SubResource("RectangleShape2D_66ruy")
 
-[node name="InteractionSensor" type="Area2D" parent="PortalB" unique_id=938319667]
+[node name="InteractionSensor" type="Area2D" parent="PortalB" unique_id=934276142]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalB/InteractionSensor" unique_id=2116150887]
-shape = SubResource("CircleShape2D_dadc4")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalB/InteractionSensor" unique_id=1273522354]
+shape = SubResource("CircleShape2D_i8lqj")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=202991148]
 
