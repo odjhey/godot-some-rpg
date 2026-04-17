@@ -12,7 +12,6 @@ func _ready():
 	if entity_id == 0:
 		entity = DoorEntity.new(game_state, {state = Chest.ChestState.Close})
 		entity_id = entity.entity_id
-		game_state.register_entity(entity_id, self)
 	game_state.entity_data_changed.connect(on_gs_data_changed)
 
 func on_gs_data_changed(p_entity_id: int, p_new_data):

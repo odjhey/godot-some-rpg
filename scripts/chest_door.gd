@@ -18,7 +18,6 @@ func _ready():
 			state = ChestEntity.ChestState.Close
 			})
 		entity_id = entity.entity_id
-		game_state.register_entity(entity_id, self)
 	
 	entity.visual_update_requested.connect(on_vizup_state_changed)
 

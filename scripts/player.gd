@@ -8,20 +8,21 @@ var game_state : GameStateContext
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var weight := 2
 var entity_id : int
+var entity : PlayerEntity
 
 
 func _ready():
 	game_state = game_state_node.context
 	# create game state entity
 	if entity_id == 0:
-		entity_id = game_state.create_entity_and_register(self)
+		entity = PlayerEntity.new(game_state, {})
+		entity_id = entity.entity_id
 
 func apply_gravity(delta, _velocity: Vector2, is_grounded: bool) -> Vector2:
 	if not is_grounded:
 		_velocity.y += gravity * weight * delta
 	
 	return _velocity
-
 
 func _physics_process(delta):
 	velocity = apply_gravity(delta, velocity, is_on_floor())

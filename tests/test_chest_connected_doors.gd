@@ -21,26 +21,26 @@ func test_door_can_open():
 			state = ChestEntity.ChestState.Close
 		})
 
-	var dummy_interactor = Entity.new(gs, {})
+	var player = PlayerEntity.new(gs,{})
 
 	# act on unrelated first
-	chest5_not_connected.on_interact(dummy_interactor.entity_id, chest5_not_connected.entity_id)
+	player.interact(gs, chest5_not_connected.entity_id)
 	# assert
 	assert_bool(chest_door.is_open()).is_equal(false)
 
 	# act on 2 first
-	chest1.on_interact(dummy_interactor.entity_id, chest1.entity_id)
-	chest2.on_interact(dummy_interactor.entity_id, chest2.entity_id)
+	player.interact(gs, chest1.entity_id)
+	player.interact(gs, chest2.entity_id)
 	# assert (not yet)
 	assert_bool(chest_door.is_open()).is_equal(false)
 
 	# act on all connected
-	chest3.on_interact(dummy_interactor.entity_id, chest3.entity_id)
-	chest4.on_interact(dummy_interactor.entity_id, chest4.entity_id)
+	player.interact(gs, chest3.entity_id)
+	player.interact(gs, chest4.entity_id)
 	# assert (open!)
 	assert_bool(chest_door.is_open()).is_equal(true)
 
 	# close the chest
-	chest3.on_interact(dummy_interactor.entity_id, chest3.entity_id)
+	player.interact(gs, chest3.entity_id)
 	# assert (closed!)
 	assert_bool(chest_door.is_open()).is_equal(false)

@@ -16,14 +16,10 @@ func _ready():
 			state = LeverEntity.LeverState.Deactivated,
 		})
 		entity_id = entity.entity_id
-		game_state.register_entity(entity_id, self)
 
 	entity.visual_update_requested.connect(on_visual_update_requested)
 	interaction_sensor.area_entered.connect(on_area_entered)
 	interaction_sensor.area_exited.connect(on_area_exited)
-
-func on_interact(...args):
-	entity.callv("on_interact", args)
 
 func on_visual_update_requested(_p_lever_state: int ):
 	print("lever visual update to ", _p_lever_state)

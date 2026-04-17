@@ -16,16 +16,12 @@ func _ready():
 	if entity_id == 0:
 		entity = ChestEntity.new(game_state, { state = Chest.ChestState.Close })
 		entity_id = entity.entity_id
-		game_state.register_entity(entity_id, self)
 	
 	interaction_sensor.area_entered.connect(on_area_entered)
 	interaction_sensor.area_exited.connect(on_area_exited)
 
 	entity.visual_update_state_changed.connect(on_vizup_state_changed)
 	entity.visual_update_player_is_nearby.connect(on_vizup_player_is_nearby)
-
-func on_interact(...args):
-	entity.callv("on_interact", args)
 
 func on_vizup_state_changed(p_state: ChestEntity.ChestState):
 	if p_state == ChestEntity.ChestState.Open:

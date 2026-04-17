@@ -7,7 +7,7 @@ extends RefCounted
 var entities : Dictionary[int, bool] = {}
 # @todo, we want to persist this so replace key with global_uid thing
 var entity_datas : Dictionary[int, Dictionary]
-var entity_nodes : Dictionary[int, WeakRef] = {}
+var entity_instances : Dictionary[int, WeakRef] = {}
 var entity_tags : Dictionary[StringName, Dictionary]
 
 # this is not serialize->persist->load safe, because we can't control the sequence
@@ -18,9 +18,9 @@ var next_entity_id : int = 1
 signal entity_data_changed(entity_id: int, new_data: Dictionary)
 signal tag_changed(tag_name: StringName, entity_id: int)
 
-func create_entity_and_register(p_node: Node, p_initial_state: Dictionary = {}) -> int:
+func create_entity_and_register(p_instance: Entity, p_initial_state: Dictionary = {}) -> int:
 	var entity_id = create_entity(p_initial_state)
-	register_entity(entity_id, p_node)
+	register_entity_instance(entity_id, p_instance)
 	return entity_id
 
 func create_entity(initial_state: Dictionary = {}) -> int:
@@ -31,12 +31,12 @@ func create_entity(initial_state: Dictionary = {}) -> int:
 	next_entity_id += 1
 	return entity_id
 
-func register_entity(p_entity_id: int, p_node: Node):
-	entity_nodes[p_entity_id] = weakref(p_node)
+func register_entity_instance(p_entity_id: int, p_entity_instance: Variant):
+	entity_instances[p_entity_id] = weakref(p_entity_instance)
 
 # @todo use this in _exit_tree() of nodes
 func erase_entity(entity_id: int):
-	entity_nodes.erase(entity_id)
+	entity_instances.erase(entity_id)
 	entities.erase(entity_id)
 	for tag_name in entity_tags.keys():
 		entity_tags[tag_name].erase(entity_id)
@@ -63,12 +63,10 @@ func untag_entity(tag_name: StringName, entity_id: int):
 # see if we can even create signals as a wrapper of game state, to keep this pure data
 # this should be extracted, as this i think is not needed to be "serialized" for saving and thus should not be in the game_state? but then again, &"in_range" is not needed to be saved tho, hmmm
 func send_interact(from_entity_id, to_entity_id):
-	var node_ref = entity_nodes[to_entity_id]
-	if node_ref == null:
-		return
-	var node: Node = node_ref.get_ref()
-	if node and node.has_method("on_interact"):
-		node.on_interact(from_entity_id, to_entity_id)
+	var instance_ref = entity_instances[to_entity_id]
+	var instance: Entity = instance_ref.get_ref()
+	if instance:
+		instance.on_interact(from_entity_id, to_entity_id)
 
 func get_entity_data(entity_id: int):
 	return entity_datas[entity_id]

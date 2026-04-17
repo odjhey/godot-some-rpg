@@ -10,17 +10,17 @@ func test_is_activated():
 	var lever = LeverEntity.new(gs, door.entity_id, {
 		state = LeverEntity.LeverState.Deactivated
 		})
-	var dummy_interactor = Entity.new(gs, {})
+	var player = PlayerEntity.new(gs, {})
 
 	# act
-	lever.on_interact(dummy_interactor.entity_id, lever.entity_id)
+	player.interact(gs, lever.entity_id)
 
 	# assert
 	assert_bool(door.is_open()).is_equal(true)
 	assert_bool(lever.is_activated()).is_equal(true)
 
 	# act
-	lever.on_interact(dummy_interactor.entity_id, lever.entity_id)
+	player.interact(gs, lever.entity_id)
 
 	# assert
 	assert_bool(door.is_open()).is_equal(false)
