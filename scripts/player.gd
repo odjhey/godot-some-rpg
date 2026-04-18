@@ -59,15 +59,18 @@ func handle_interact() -> void:
 	if not interact_requested:
 		return
 
-	var in_range := game_state.get_entity_tags_by_tag(&"in_player_range")
-	if not in_range.is_empty():
-		var in_range_for_me : Dictionary = in_range[entity_id]
-		if not in_range_for_me.is_empty():
-			# @todo take the first one for now
-			var interact_with_entity_id: int = in_range_for_me.keys()[0]
-			interact(interact_with_entity_id)
-
 	interact_requested = false
+
+	var in_range: Dictionary = game_state.get_entity_tags_by_tag(&"in_player_range")
+	if not in_range.has(entity_id):
+		return
+
+	var nearby: Dictionary = in_range[entity_id]
+	if nearby.is_empty():
+		return
+
+	var target_id: int = nearby.keys()[0]
+	interact(target_id)
 
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
