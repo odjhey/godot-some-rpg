@@ -8,7 +8,7 @@ func test_is_activated() -> void:
 		state = ChestStruct.State.Close
 		})
 	var lever := LeverEntity.new(gs, door.entity_id, {
-		state = LeverEntity.LeverState.Deactivated
+		state = LeverStruct.State.Deactivated
 		})
 	var player := PlayerEntity.new(gs, {})
 

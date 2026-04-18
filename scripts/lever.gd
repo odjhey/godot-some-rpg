@@ -13,7 +13,7 @@ func _ready():
 		entity = LeverEntity.new(game_state, 
 		connected_door.entity_id,
 		{
-			state = LeverEntity.LeverState.Deactivated,
+			state = LeverStruct.State.Deactivated,
 		})
 		entity_id = entity.entity_id
 
