@@ -5,6 +5,7 @@ const JUMP_VELOCITY := -1500.0
 const SPEED := 300.0
 
 @export var game_state_node: GameState
+@onready var interaction_trigger : InteractionTrigger = $InteractionTrigger
 
 var game_state: GameStateContext
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2.0
@@ -25,6 +26,7 @@ func _ready() -> void:
 		entity = PlayerEntity.new(game_state, {})
 		entity_id = entity.entity_id
 
+	interaction_trigger.source_entity_id = entity_id
 	game_state_node.register_node(entity_id, self)
 
 func set_is_controlled(value: bool) -> void:
@@ -59,8 +61,11 @@ func handle_interact() -> void:
 
 	var in_range := game_state.get_entity_tags_by_tag(&"in_player_range")
 	if not in_range.is_empty():
-		var interact_with_entity_id: int = in_range.keys()[0]
-		interact(interact_with_entity_id)
+		var in_range_for_me : Dictionary = in_range[entity_id]
+		if not in_range_for_me.is_empty():
+			# @todo take the first one for now
+			var interact_with_entity_id: int = in_range_for_me.keys()[0]
+			interact(interact_with_entity_id)
 
 	interact_requested = false
 

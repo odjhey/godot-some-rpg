@@ -32,13 +32,13 @@ func on_vizup_state_changed(p_state: ChestStruct.State) -> void:
 func on_vizup_player_is_nearby(p_is_nearby: bool) -> void:
 	interaction_hint.visible = p_is_nearby
 
-func on_area_entered(_area: Area2D) -> void:
+func on_area_entered(area: InteractionTrigger) -> void:
 	# todo find a way to know if its a player
-	game_state.tag_entity(&"in_player_range", entity_id)
-	print("entered")
+	game_state.tag_entity(&"in_player_range", area.source_entity_id, entity_id)
+	print("entered", area.source_entity_id)
 
 
-func on_area_exited(_area: Area2D) -> void:
+func on_area_exited(area: InteractionTrigger) -> void:
 	# todo find a way to know if its a player
-	game_state.untag_entity(&"in_player_range", entity_id)
-	print("exited")
+	game_state.untag_entity(&"in_player_range", area.source_entity_id, entity_id)
+	print("exited", area.source_entity_id)

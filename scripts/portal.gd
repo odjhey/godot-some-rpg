@@ -24,16 +24,16 @@ func complete_setup() -> void:
 	if portal_b != null:
 		entity.set_portal_pair(portal_b.entity_id)
 
-func on_area_entered(_area: Area2D) -> void:
+func on_area_entered(area: InteractionTrigger) -> void:
 	# todo find a way to know if its a player
-	game_state.tag_entity(&"in_player_range", entity_id)
-	print("entered")
+	game_state.tag_entity(&"in_player_range", area.source_entity_id, entity_id)
+	print("entered ", area.source_entity_id)
 
 
-func on_area_exited(_area: Area2D) -> void:
+func on_area_exited(area: InteractionTrigger) -> void:
 	# todo find a way to know if its a player
-	game_state.untag_entity(&"in_player_range", entity_id)
-	print("exited")
+	game_state.untag_entity(&"in_player_range", area.source_entity_id, entity_id)
+	print("exited ", area.source_entity_id)
 
 func on_teleport_requested(p_subject: int, p_target: int) -> void:
 	var subject_node := game_state_node.get_entity_node(p_subject) as Node2D

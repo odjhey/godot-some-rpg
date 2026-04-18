@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c4cu5mneddvuy" path="res://scenes/chest.tscn" id="2_pbc48"]
 [ext_resource type="PackedScene" uid="uid://cbflrfaf28rl8" path="res://scenes/chest_node.tscn" id="3_eqxsl"]
 [ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="3_pbc48"]
+[ext_resource type="Script" uid="uid://dsk7hdjgd2400" path="res://test_scenes/swap_chars_test/char_cycle_manager.gd" id="3_wo48x"]
 [ext_resource type="Script" uid="uid://d2v0ra47iwli1" path="res://scripts/chest_door.gd" id="4_b4j7a"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y4x0y"]
@@ -25,6 +26,12 @@ position = Vector2(442, 266)
 
 [node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("1_jm1iu")]
 game_state_node = NodePath("../GameState")
+
+[node name="PuppetController" type="Node" parent="." unique_id=1630530116 node_paths=PackedStringArray("game_state_node", "puppets")]
+script = ExtResource("3_wo48x")
+game_state_node = NodePath("../GameState")
+puppets = [NodePath("../Player")]
+metadata/_custom_type_script = "uid://dsk7hdjgd2400"
 
 [node name="ChestEntity" parent="." unique_id=763314863 node_paths=PackedStringArray("game_state_node") instance=ExtResource("3_eqxsl")]
 position = Vector2(-62, 466)

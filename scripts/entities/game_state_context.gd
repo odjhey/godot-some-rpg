@@ -16,7 +16,7 @@ var next_entity_id : int = 1
 
 # @todod rename to *changed
 signal entity_data_changed(entity_id: int, new_data: Dictionary, prev_data: Dictionary)
-signal tag_changed(tag_name: StringName, entity_id: int)
+signal tag_changed(tag_name: StringName, source_entity_id: int, entity_id: int)
 
 func create_entity_and_register(p_instance: Entity, p_initial_state: Dictionary = {}) -> int:
 	var entity_id := create_entity(p_initial_state)
@@ -44,23 +44,29 @@ func erase_entity(entity_id: int) -> void:
 		entity_tags[tag_name].erase(entity_id)
 
 # @todo, for relationships like &"in_range", we may want the player to own so entity_tags[tag_name][player][entity_id] = { data }
-func tag_entity(tag_name: StringName, entity_id: int) -> void:
+# @todo, is this final? do all tags require a source_entity_id?
+func tag_entity(tag_name: StringName, source_entity_id: int, entity_id: int) -> void:
 	if not entity_tags.has(tag_name):
 		entity_tags[tag_name] = {}
-	entity_tags[tag_name][entity_id] = true
-	tag_changed.emit(tag_name, entity_id)
+	if not entity_tags[tag_name].has(source_entity_id):
+		entity_tags[tag_name][source_entity_id] = {}
+
+	entity_tags[tag_name][source_entity_id][entity_id] = true
+	tag_changed.emit(tag_name, source_entity_id, entity_id)
 
 func get_entity_tags_by_tag(tag_name: StringName) -> Dictionary:
 	if entity_tags.has(tag_name):
 		return entity_tags[tag_name]
 	return {}
 
-func untag_entity(tag_name: StringName, entity_id: int) -> void:
+func untag_entity(tag_name: StringName, source_entity_id:int, entity_id: int) -> void:
 	if not entity_tags.has(tag_name):
 		return
-	var tags : Dictionary = entity_tags[tag_name]
+	if not entity_tags[tag_name].has(source_entity_id):
+		return
+	var tags : Dictionary = entity_tags[tag_name][source_entity_id]
 	tags.erase(entity_id)
-	tag_changed.emit(tag_name, entity_id)
+	tag_changed.emit(tag_name, source_entity_id, entity_id)
 
 # see if we can even create signals as a wrapper of game state, to keep this pure data
 # this should be extracted, as this i think is not needed to be "serialized" for saving and thus should not be in the game_state? but then again, &"in_range" is not needed to be saved tho, hmmm
