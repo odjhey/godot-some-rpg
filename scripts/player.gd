@@ -5,13 +5,13 @@ const SPEED = 300
 
 @export var game_state_node : GameState
 var game_state : GameStateContext
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var weight := 2
 var entity_id : int
 var entity : PlayerEntity
 
 
-func _ready():
+func _ready() -> void:
 	game_state = game_state_node.context
 	# create game state entity
 	if entity_id == 0:
@@ -19,22 +19,22 @@ func _ready():
 		entity_id = entity.entity_id
 	game_state_node.register_node(entity_id, self)
 
-func apply_gravity(delta, _velocity: Vector2, is_grounded: bool) -> Vector2:
+func apply_gravity(delta: float, _velocity: Vector2, is_grounded: bool) -> Vector2:
 	if not is_grounded:
 		_velocity.y += gravity * weight * delta
 	
 	return _velocity
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	velocity = apply_gravity(delta, velocity, is_on_floor())
 	# handle jump
 	if Input.is_action_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	if Input.is_action_just_released("interact"):
-		var in_range = game_state.get_entity_tags_by_tag(&"in_player_range")
+		var in_range := game_state.get_entity_tags_by_tag(&"in_player_range")
 		if not in_range.is_empty():
 			# take the first one that we made contact with
-			var interact_with_entity_id = in_range.keys()[0]
+			var interact_with_entity_id : int = in_range.keys()[0]
 			interact(interact_with_entity_id)
 
 	# left right
@@ -43,6 +43,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func interact(_entity_id: int):
+func interact(_entity_id: int) -> void:
 	print("interact with ", _entity_id)
 	game_state.send_interact(entity_id, _entity_id)

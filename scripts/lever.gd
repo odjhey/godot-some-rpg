@@ -7,7 +7,7 @@ var game_state : GameStateContext
 @export var entity_id : int
 var entity: LeverEntity
 
-func _ready():
+func _ready() -> void:
 	game_state = game_state_node.context
 	if entity_id == 0:
 		entity = LeverEntity.new(game_state, 
@@ -21,15 +21,15 @@ func _ready():
 	interaction_sensor.area_entered.connect(on_area_entered)
 	interaction_sensor.area_exited.connect(on_area_exited)
 
-func on_visual_update_requested(_p_lever_state: int ):
+func on_visual_update_requested(_p_lever_state: int ) -> void:
 	print("lever visual update to ", _p_lever_state)
 
-func on_area_entered(_area: Area2D):
+func on_area_entered(_area: Area2D) -> void:
 	# todo find a way to know if its a player
 	game_state.tag_entity(&"in_player_range", entity_id)
 	print("entered")
 
-func on_area_exited(_area: Area2D):
+func on_area_exited(_area: Area2D) -> void:
 	# todo find a way to know if its a player
 	game_state.untag_entity(&"in_player_range", entity_id)
 	print("exited")

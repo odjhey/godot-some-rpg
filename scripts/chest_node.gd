@@ -10,7 +10,7 @@ var game_state : GameStateContext
 
 var entity: ChestEntity
 
-func _ready():
+func _ready() -> void:
 	game_state = game_state_node.context
 	# create game state entity
 	if entity_id == 0:
@@ -23,22 +23,22 @@ func _ready():
 	entity.visual_update_state_changed.connect(on_vizup_state_changed)
 	entity.visual_update_player_is_nearby.connect(on_vizup_player_is_nearby)
 
-func on_vizup_state_changed(p_state: ChestStruct.State):
+func on_vizup_state_changed(p_state: ChestStruct.State) -> void:
 	if p_state == ChestStruct.State.Open:
 		chest.open()
 	else:
 		chest.close()
 
-func on_vizup_player_is_nearby(p_is_nearby: bool):
+func on_vizup_player_is_nearby(p_is_nearby: bool) -> void:
 	interaction_hint.visible = p_is_nearby
 
-func on_area_entered(_area: Area2D):
+func on_area_entered(_area: Area2D) -> void:
 	# todo find a way to know if its a player
 	game_state.tag_entity(&"in_player_range", entity_id)
 	print("entered")
 
 
-func on_area_exited(_area: Area2D):
+func on_area_exited(_area: Area2D) -> void:
 	# todo find a way to know if its a player
 	game_state.untag_entity(&"in_player_range", entity_id)
 	print("exited")

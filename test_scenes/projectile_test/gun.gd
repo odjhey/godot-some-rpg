@@ -4,7 +4,7 @@ extends Node2D
 var bullet_scene : PackedScene = preload("res://test_scenes/projectile_test/bullet.tscn")
 
 
-func _unhandled_input(event: InputEvent):
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		var bullet: Bullet = bullet_scene.instantiate()
 		bullet.global_position = global_position

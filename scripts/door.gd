@@ -7,14 +7,14 @@ var game_state : GameStateContext
 @export var entity_id : int
 var entity : DoorEntity
 
-func _ready():
+func _ready() -> void:
 	game_state = game_state_node.context
 	if entity_id == 0:
 		entity = DoorEntity.new(game_state, {state = ChestStruct.State.Close})
 		entity_id = entity.entity_id
 	game_state.entity_data_changed.connect(on_gs_data_changed)
 
-func on_gs_data_changed(p_entity_id: int, p_new_data):
+func on_gs_data_changed(p_entity_id: int, p_new_data: Dictionary) -> void:
 	if p_entity_id != entity_id:
 		return
 	

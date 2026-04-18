@@ -17,11 +17,11 @@ func is_open() -> bool:
 	var own_data := game_state.get_entity_data(entity_id)
 	return own_data.get("state") == ChestStruct.State.Open
 
-func on_gs_data_changed(p_entity_id: int, _new_data):
-	var own_data = game_state.get_entity_data(entity_id)
+func on_gs_data_changed(p_entity_id: int, _new_data: Dictionary) -> void:
+	var own_data := game_state.get_entity_data(entity_id)
 	var connected_chest_ids: Array[int] = own_data.get("connected_chests_entity_ids")
 
-	var is_chest_connected = false
+	var is_chest_connected := false
 	for cid in connected_chest_ids:
 		if cid == p_entity_id:
 			is_chest_connected = true
@@ -29,9 +29,9 @@ func on_gs_data_changed(p_entity_id: int, _new_data):
 		return
 
 	# count opened chests
-	var open_chest_count = 0
+	var open_chest_count := 0
 	for cid in connected_chest_ids:
-		var c_data = game_state.get_entity_data(cid)
+		var c_data := game_state.get_entity_data(cid)
 		if c_data.get("state") == ChestStruct.State.Open:
 			open_chest_count += 1
 	

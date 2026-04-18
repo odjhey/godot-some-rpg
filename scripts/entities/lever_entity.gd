@@ -3,10 +3,6 @@ extends Entity
 
 signal visual_update_requested(state: LeverStruct.State)
 
-func get_typed_data() -> LeverStruct:
-	var data : Dictionary = game_state.get_entity_data(entity_id)
-	return LeverStruct.from_dict(data)
-
 func _init(p_game_state: GameStateContext, p_connected_door_entity_id: int, p_initial_state: Dictionary) -> void:
 	var new_state := {
 		connected_door_entity_id = p_connected_door_entity_id
@@ -49,3 +45,8 @@ func on_gs_data_changed(p_entity_id: int, p_new_data: Dictionary) -> void:
 		game_state.patch_entity_data(data.connected_door_entity_id, {state = ChestStruct.State.Close})
 	
 	visual_update_requested.emit(data.state)
+
+func get_typed_data() -> LeverStruct:
+	var data : Dictionary = game_state.get_entity_data(entity_id)
+	return LeverStruct.from_dict(data)
+

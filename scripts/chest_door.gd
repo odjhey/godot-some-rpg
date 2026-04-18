@@ -8,7 +8,7 @@ var game_state : GameStateContext
 @export var chest_interests : Array[ChestNode]
 var entity: ChestDoorEntity
 
-func _ready():
+func _ready() -> void:
 	game_state = game_state_node.context
 	if entity_id == 0:
 		var cids: Array[int] = []
@@ -21,7 +21,7 @@ func _ready():
 	
 	entity.visual_update_requested.connect(on_vizup_state_changed)
 
-func on_vizup_state_changed(state: ChestStruct.State):
+func on_vizup_state_changed(state: ChestStruct.State) -> void:
 	if state == ChestStruct.State.Open:
 		chest.open()
 	else:
