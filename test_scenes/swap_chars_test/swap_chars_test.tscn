@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://efgxillvja5w"]
+
+[ext_resource type="Script" uid="uid://dl6k01ft6nxlu" path="res://scripts/level_1.gd" id="1_jkol2"]
+[ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="2_rb45p"]
+[ext_resource type="Script" uid="uid://dsk7hdjgd2400" path="res://test_scenes/swap_chars_test/char_cycle_manager.gd" id="3_b5kai"]
+[ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="3_ko5mr"]
+[ext_resource type="PackedScene" uid="uid://cbflrfaf28rl8" path="res://scenes/chest_node.tscn" id="4_yv34e"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gkh53"]
+
+[node name="Level1" type="Node" unique_id=2069936512]
+script = ExtResource("1_jkol2")
+
+[node name="GameState" type="Node" parent="." unique_id=1833307047]
+script = ExtResource("2_rb45p")
+metadata/_custom_type_script = "uid://6y1vo6m6hl22"
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=780091674]
+position = Vector2(0, 594)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=88984762]
+shape = SubResource("WorldBoundaryShape2D_gkh53")
+
+[node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("3_ko5mr")]
+position = Vector2(16, 16)
+game_state_node = NodePath("../GameState")
+
+[node name="Player2" parent="." unique_id=1766943589 node_paths=PackedStringArray("game_state_node") instance=ExtResource("3_ko5mr")]
+position = Vector2(336, 83)
+game_state_node = NodePath("../GameState")
+
+[node name="CharCycleManager" type="Node" parent="." unique_id=1608779711 node_paths=PackedStringArray("game_state_node", "puppets")]
+script = ExtResource("3_b5kai")
+game_state_node = NodePath("../GameState")
+puppets = [NodePath("../Player"), NodePath("../Player2")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=961323937]
+position = Vector2(210, 370)
+
+[node name="ChestEntity" parent="." unique_id=763314863 node_paths=PackedStringArray("game_state_node") instance=ExtResource("4_yv34e")]
+position = Vector2(472, 514)
+game_state_node = NodePath("../GameState")
+
+[node name="Label" type="Label" parent="." unique_id=824872549]
+offset_left = -220.0
+offset_top = 176.0
+offset_right = -180.0
+offset_bottom = 199.0
+text = "hello world"
+
+[node name="ChestEntity2" parent="." unique_id=1486545561 node_paths=PackedStringArray("game_state_node") instance=ExtResource("4_yv34e")]
+position = Vector2(-194, 508)
+game_state_node = NodePath("../GameState")
+
+[node name="ChestEntity3" parent="." unique_id=1499131308 node_paths=PackedStringArray("game_state_node") instance=ExtResource("4_yv34e")]
+position = Vector2(572, 514)
+game_state_node = NodePath("../GameState")

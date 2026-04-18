@@ -1,14 +1,16 @@
+class_name PlayerNode
 extends CharacterBody2D
 
-const JUMP_VELOCITY = -1000.0
+const JUMP_VELOCITY = -1500.0
 const SPEED = 300
 
 @export var game_state_node : GameState
 var game_state : GameStateContext
-var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 var weight := 2
 var entity_id : int
 var entity : PlayerEntity
+var active_movement := false
 
 
 func _ready() -> void:
@@ -22,24 +24,27 @@ func _ready() -> void:
 func apply_gravity(delta: float, _velocity: Vector2, is_grounded: bool) -> Vector2:
 	if not is_grounded:
 		_velocity.y += gravity * weight * delta
-	
 	return _velocity
 
-func _physics_process(delta: float) -> void:
-	velocity = apply_gravity(delta, velocity, is_on_floor())
+func compute_movement() -> void:
 	# handle jump
 	if Input.is_action_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	# left right
+	var direction := Input.get_axis("move_left", "move_right")
+	velocity.x = direction * SPEED
+
+func _physics_process(delta: float) -> void:
+	velocity = apply_gravity(delta, velocity, is_on_floor())
 	if Input.is_action_just_released("interact"):
 		var in_range := game_state.get_entity_tags_by_tag(&"in_player_range")
 		if not in_range.is_empty():
 			# take the first one that we made contact with
 			var interact_with_entity_id : int = in_range.keys()[0]
 			interact(interact_with_entity_id)
-
-	# left right
-	var direction := Input.get_axis("move_left", "move_right")
-	velocity.x = direction * SPEED
+	
+	if active_movement:
+		compute_movement()
 
 	move_and_slide()
 
