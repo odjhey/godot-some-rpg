@@ -1,16 +1,16 @@
 extends GdUnitTestSuite
 
 # levers should open connected doors
-func test_is_activated():
+func test_is_activated() -> void:
 	# arrange
-	var gs = GameStateContext.new()
-	var door = DoorEntity.new(gs, {
-		state = Chest.ChestState.Close
+	var gs := GameStateContext.new()
+	var door := DoorEntity.new(gs, {
+		state = ChestStruct.State.Close
 		})
-	var lever = LeverEntity.new(gs, door.entity_id, {
+	var lever := LeverEntity.new(gs, door.entity_id, {
 		state = LeverEntity.LeverState.Deactivated
 		})
-	var player = PlayerEntity.new(gs, {})
+	var player := PlayerEntity.new(gs, {})
 
 	# act
 	player.interact(gs, lever.entity_id)

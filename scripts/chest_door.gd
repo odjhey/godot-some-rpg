@@ -15,14 +15,14 @@ func _ready():
 		for c in chest_interests:
 			cids.append(c.entity_id)
 		entity = ChestDoorEntity.new(game_state, cids, {
-			state = ChestEntity.ChestState.Close
+			state = ChestStruct.State.Close
 			})
 		entity_id = entity.entity_id
 	
 	entity.visual_update_requested.connect(on_vizup_state_changed)
 
-func on_vizup_state_changed(state: ChestEntity.ChestState):
-	if state == ChestEntity.ChestState.Open:
+func on_vizup_state_changed(state: ChestStruct.State):
+	if state == ChestStruct.State.Open:
 		chest.open()
 	else:
 		chest.close()

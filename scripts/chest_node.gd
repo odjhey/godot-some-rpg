@@ -14,7 +14,7 @@ func _ready():
 	game_state = game_state_node.context
 	# create game state entity
 	if entity_id == 0:
-		entity = ChestEntity.new(game_state, { state = Chest.ChestState.Close })
+		entity = ChestEntity.new(game_state, { state = ChestStruct.State.Close })
 		entity_id = entity.entity_id
 	
 	interaction_sensor.area_entered.connect(on_area_entered)
@@ -23,8 +23,8 @@ func _ready():
 	entity.visual_update_state_changed.connect(on_vizup_state_changed)
 	entity.visual_update_player_is_nearby.connect(on_vizup_player_is_nearby)
 
-func on_vizup_state_changed(p_state: ChestEntity.ChestState):
-	if p_state == ChestEntity.ChestState.Open:
+func on_vizup_state_changed(p_state: ChestStruct.State):
+	if p_state == ChestStruct.State.Open:
 		chest.open()
 	else:
 		chest.close()

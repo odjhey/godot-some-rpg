@@ -42,8 +42,8 @@ func on_gs_data_changed(p_entity_id: int, p_new_data):
 	if not connected_door_entity_id > 0:
 		push_warning("invalid door connection ", connected_door_entity_id)
 	if p_new_data.get("state") == LeverEntity.LeverState.Activated:
-		game_state.patch_entity_data(connected_door_entity_id, {state = Chest.ChestState.Open})
+		game_state.patch_entity_data(connected_door_entity_id, {state = ChestStruct.State.Open})
 	else:
-		game_state.patch_entity_data(connected_door_entity_id, {state = Chest.ChestState.Close})
+		game_state.patch_entity_data(connected_door_entity_id, {state = ChestStruct.State.Close})
 	
 	visual_update_requested.emit(data.get("state"))

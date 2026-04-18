@@ -1,21 +1,21 @@
 class_name ChestDoorEntity
 extends Entity
 
-signal visual_update_requested(state: ChestEntity.ChestState)
+signal visual_update_requested(state: ChestStruct.State)
 
-func _init(p_game_state: GameStateContext, p_connected_chests_entity_ids: Array[int], p_initial_state: Dictionary):
-	var new_state = {
+func _init(p_game_state: GameStateContext, p_connected_chests_entity_ids: Array[int], p_initial_state: Dictionary) -> void:
+	var new_state := {
 		connected_chests_entity_ids = p_connected_chests_entity_ids
 		}
 	new_state.merge(p_initial_state, true)
 	super(p_game_state, new_state)
 
-func wire_signals():
+func wire_signals() -> void:
 	game_state.entity_data_changed.connect(on_gs_data_changed)
 
 func is_open() -> bool:
-	var own_data = game_state.get_entity_data(entity_id)
-	return own_data.get("state") == ChestEntity.ChestState.Open
+	var own_data := game_state.get_entity_data(entity_id)
+	return own_data.get("state") == ChestStruct.State.Open
 
 func on_gs_data_changed(p_entity_id: int, _new_data):
 	var own_data = game_state.get_entity_data(entity_id)
@@ -32,12 +32,12 @@ func on_gs_data_changed(p_entity_id: int, _new_data):
 	var open_chest_count = 0
 	for cid in connected_chest_ids:
 		var c_data = game_state.get_entity_data(cid)
-		if c_data.get("state") == ChestEntity.ChestState.Open:
+		if c_data.get("state") == ChestStruct.State.Open:
 			open_chest_count += 1
 	
 	if open_chest_count >= connected_chest_ids.size():
-		game_state.patch_entity_data(entity_id, { state = ChestEntity.ChestState.Open })
-		visual_update_requested.emit(ChestEntity.ChestState.Open)
+		game_state.patch_entity_data(entity_id, { state = ChestStruct.State.Open })
+		visual_update_requested.emit(ChestStruct.State.Open)
 	else:
-		game_state.patch_entity_data(entity_id, { state = ChestEntity.ChestState.Close })
-		visual_update_requested.emit(ChestEntity.ChestState.Close)
+		game_state.patch_entity_data(entity_id, { state = ChestStruct.State.Close })
+		visual_update_requested.emit(ChestStruct.State.Close)

@@ -5,7 +5,7 @@ func test_door_can_open():
 	# arrange
 	var gs = GameStateContext.new()
 	var default_chest_state = {
-		state = ChestEntity.ChestState.Close
+		state = ChestStruct.State.Close
 		}
 	var chest1 = ChestEntity.new(gs, default_chest_state)
 	var chest2 = ChestEntity.new(gs, default_chest_state)
@@ -18,7 +18,7 @@ func test_door_can_open():
 		chest3.entity_id,
 		chest4.entity_id,
 		], {
-			state = ChestEntity.ChestState.Close
+			state = ChestStruct.State.Close
 		})
 
 	var player = PlayerEntity.new(gs,{})
