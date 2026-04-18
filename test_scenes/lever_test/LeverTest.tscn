@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cjyrh6n5lslte" path="res://scripts/lever.gd" id="2_uc4t2"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="5_px1b0"]
 [ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="6_6oxeg"]
+[ext_resource type="Script" uid="uid://dsk7hdjgd2400" path="res://test_scenes/swap_chars_test/char_cycle_manager.gd" id="7_axqme"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_scdb6"]
 
@@ -51,3 +52,9 @@ shape = SubResource("CircleShape2D_px1b0")
 
 [node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("6_6oxeg")]
 game_state_node = NodePath("../GameState")
+
+[node name="PuppetController" type="Node" parent="." unique_id=1061843383 node_paths=PackedStringArray("game_state_node", "puppets")]
+script = ExtResource("7_axqme")
+game_state_node = NodePath("../GameState")
+puppets = [NodePath("../Player")]
+metadata/_custom_type_script = "uid://dsk7hdjgd2400"

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="1_hpidm"]
 [ext_resource type="Script" uid="uid://b3wcroc3be223" path="res://scripts/portal.gd" id="1_p757m"]
+[ext_resource type="Script" uid="uid://dsk7hdjgd2400" path="res://test_scenes/swap_chars_test/char_cycle_manager.gd" id="3_dadc4"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_i8lqj"]
 [ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="5_i8lqj"]
 
@@ -26,6 +27,12 @@ metadata/_custom_type_script = "uid://6y1vo6m6hl22"
 [node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("5_i8lqj")]
 position = Vector2(200, 55)
 game_state_node = NodePath("../GameState")
+
+[node name="PuppetController" type="Node" parent="." unique_id=1220081034 node_paths=PackedStringArray("game_state_node", "puppets")]
+script = ExtResource("3_dadc4")
+game_state_node = NodePath("../GameState")
+puppets = [NodePath("../Player")]
+metadata/_custom_type_script = "uid://dsk7hdjgd2400"
 
 [node name="PortalA" type="Node2D" parent="." unique_id=704119327 node_paths=PackedStringArray("game_state_node", "portal_b")]
 position = Vector2(-413, 324)
