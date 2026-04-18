@@ -23,6 +23,7 @@ shape = SubResource("WorldBoundaryShape2D_gkh53")
 [node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("1_014kd")]
 position = Vector2(16, 16)
 game_state_node = NodePath("../GameState")
+active_movement = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=961323937]
 position = Vector2(210, 370)

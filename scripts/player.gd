@@ -1,53 +1,81 @@
 class_name PlayerNode
 extends CharacterBody2D
 
-const JUMP_VELOCITY = -1500.0
-const SPEED = 300
+const JUMP_VELOCITY := -1500.0
+const SPEED := 300.0
 
-@export var game_state_node : GameState
-var game_state : GameStateContext
-var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
-var weight := 2
-var entity_id : int
-var entity : PlayerEntity
-var active_movement := false
+@export var game_state_node: GameState
 
+var game_state: GameStateContext
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2.0
+var weight := 2.0
+
+var entity_id: int
+var entity: PlayerEntity
+
+var is_controlled := false
+var move_input_x := 0.0
+var jump_requested := false
+var interact_requested := false
 
 func _ready() -> void:
 	game_state = game_state_node.context
-	# create game state entity
+
 	if entity_id == 0:
 		entity = PlayerEntity.new(game_state, {})
 		entity_id = entity.entity_id
+
 	game_state_node.register_node(entity_id, self)
 
-func apply_gravity(delta: float, _velocity: Vector2, is_grounded: bool) -> Vector2:
-	if not is_grounded:
-		_velocity.y += gravity * weight * delta
-	return _velocity
+func set_is_controlled(value: bool) -> void:
+	is_controlled = value
+	if not is_controlled:
+		move_input_x = 0.0
 
-func compute_movement() -> void:
-	# handle jump
-	if Input.is_action_pressed("ui_accept") and is_on_floor():
+func set_move_input(p_x: float) -> void:
+	move_input_x = p_x
+
+func request_jump() -> void:
+	jump_requested = true
+
+func request_interact() -> void:
+	interact_requested = true
+
+func apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y += gravity * weight * delta
+
+func apply_horizontal_movement() -> void:
+	velocity.x = move_input_x * SPEED
+
+func handle_jump() -> void:
+	if jump_requested and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	# left right
-	var direction := Input.get_axis("move_left", "move_right")
-	velocity.x = direction * SPEED
+	jump_requested = false
+
+func handle_interact() -> void:
+	if not interact_requested:
+		return
+
+	var in_range := game_state.get_entity_tags_by_tag(&"in_player_range")
+	if not in_range.is_empty():
+		var interact_with_entity_id: int = in_range.keys()[0]
+		interact(interact_with_entity_id)
+
+	interact_requested = false
 
 func _physics_process(delta: float) -> void:
-	velocity = apply_gravity(delta, velocity, is_on_floor())
-	if Input.is_action_just_released("interact"):
-		var in_range := game_state.get_entity_tags_by_tag(&"in_player_range")
-		if not in_range.is_empty():
-			# take the first one that we made contact with
-			var interact_with_entity_id : int = in_range.keys()[0]
-			interact(interact_with_entity_id)
-	
-	if active_movement:
-		compute_movement()
+	apply_gravity(delta)
+
+	if is_controlled:
+		apply_horizontal_movement()
+		handle_jump()
+		handle_interact()
+	else:
+		velocity.x = 0.0
 
 	move_and_slide()
 
-func interact(_entity_id: int) -> void:
-	print("interact with ", _entity_id)
-	game_state.send_interact(entity_id, _entity_id)
+func interact(p_entity_id: int) -> void:
+	print("interact with ", p_entity_id)
+	game_state.send_interact(entity_id, p_entity_id)

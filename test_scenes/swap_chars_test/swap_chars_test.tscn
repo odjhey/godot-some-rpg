@@ -8,7 +8,7 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gkh53"]
 
-[node name="Level1" type="Node" unique_id=2069936512]
+[node name="SwapCharsTest" type="Node" unique_id=2069936512]
 script = ExtResource("1_jkol2")
 
 [node name="GameState" type="Node" parent="." unique_id=1833307047]

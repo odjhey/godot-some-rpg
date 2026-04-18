@@ -1,52 +1,65 @@
+class_name PuppetController
 extends Node
 
-@export var game_state_node : GameState
-var game_state : GameStateContext
-var manager : ControlCycleManager
-var entity_id : int
-@export var puppets : Array[PlayerNode]
+@export var game_state_node: GameState
+@export var puppets: Array[PlayerNode]
 
-const ACTION_FILTER := [
-	"move_left",
-	"move_right",
-	"swap_chars",
-	"ui_accept",
-	"interact",
-]
+var game_state: GameStateContext
+var manager: ControlCycleManager
+var entity_id: int
+
+const ACTION_SWAP: StringName = &"swap_chars"
+const ACTION_LEFT: StringName = &"move_left"
+const ACTION_RIGHT: StringName = &"move_right"
+const ACTION_JUMP: StringName = &"ui_accept"
+const ACTION_INTERACT: StringName = &"interact"
 
 func _ready() -> void:
 	game_state = game_state_node.context
+
 	if entity_id == 0:
 		var puppet_ids: Array[int] = []
 		for p: PlayerNode in puppets:
 			puppet_ids.append(p.entity_id)
-		print("puppet_ids ", puppet_ids)
-		#@todo could be a singleton?
-		manager = ControlCycleManager.new(game_state, puppet_ids, {
-			default_target = puppet_ids[0]
-			})
 
+		manager = ControlCycleManager.new(game_state, puppet_ids, {
+			active_puppet = puppet_ids[0],
+			default_puppet = puppet_ids[0],
+		})
+
+	manager.active_target_changed.connect(on_active_target_changed)
+	on_active_target_changed(-1, manager.get_active_target())
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_valid_action(event):
-		return
-
-	if event.is_action_released("swap_chars"):
+	if event.is_action_released(ACTION_SWAP):
 		manager.next()
-		print("next", manager.get_active_target())
 		return
 
-	for p in puppets:
-		if manager.get_active_target() == p.entity_id:
-			p.active_movement = true
-		else:
-			p.active_movement = false
+	var active := get_active_puppet()
+	if active == null:
+		return
 
+	if event.is_action_pressed(ACTION_JUMP):
+		active.request_jump()
 
-func is_valid_action(event: InputEvent) -> bool:
-	for action: String in ACTION_FILTER:
-		if event.is_action_pressed(action):
-			return true
-		if event.is_action_released("swap_chars"):
-			return true
-	return false
+	if event.is_action_released(ACTION_INTERACT):
+		active.request_interact()
+
+func _physics_process(_delta: float) -> void:
+	var active := get_active_puppet()
+	if active == null:
+		return
+
+	var move_x := Input.get_axis(ACTION_LEFT, ACTION_RIGHT)
+	active.set_move_input(move_x)
+
+func get_active_puppet() -> PlayerNode:
+	var active_id := manager.get_active_target()
+	for p: PlayerNode in puppets:
+		if p.entity_id == active_id:
+			return p
+	return null
+
+func on_active_target_changed(_prev_target: int, new_target: int) -> void:
+	for p: PlayerNode in puppets:
+		p.set_is_controlled(p.entity_id == new_target)
