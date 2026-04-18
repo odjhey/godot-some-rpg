@@ -30,7 +30,7 @@ func on_interact(_from_entity_id: int, to_entity_id: int) -> void:
 	game_state.patch_entity_data(entity_id, new_data)
 
 
-func on_gs_data_changed(p_entity_id: int, p_new_data: Dictionary) -> void:
+func on_gs_data_changed(p_entity_id: int, p_new_data: Dictionary, _p_prev_data: Dictionary) -> void:
 	if p_entity_id != entity_id:
 		return
 	# toggle connected door state

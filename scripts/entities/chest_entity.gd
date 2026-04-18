@@ -27,7 +27,7 @@ func wire_signals() -> void:
 	game_state.entity_data_changed.connect(on_gs_data_changed)
 	game_state.tag_changed.connect(on_tag_changed)
 
-func on_gs_data_changed(p_entity_id: int, _p_new_data: Dictionary) -> void:
+func on_gs_data_changed(p_entity_id: int, _p_new_data: Dictionary, _p_prev_data: Dictionary) -> void:
 	if (entity_id != p_entity_id):
 		return
 	var data := get_typed_data()

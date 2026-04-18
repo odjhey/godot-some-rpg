@@ -17,7 +17,7 @@ func is_open() -> bool:
 	var own_data := game_state.get_entity_data(entity_id)
 	return own_data.get("state") == ChestStruct.State.Open
 
-func on_gs_data_changed(p_entity_id: int, _new_data: Dictionary) -> void:
+func on_gs_data_changed(p_entity_id: int, _new_data: Dictionary, _p_prev_data: Dictionary) -> void:
 	var own_data := game_state.get_entity_data(entity_id)
 	var connected_chest_ids: Array[int] = own_data.get("connected_chests_entity_ids")
 

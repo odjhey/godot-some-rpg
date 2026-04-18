@@ -15,7 +15,7 @@ var entity_tags : Dictionary[StringName, Dictionary]
 var next_entity_id : int = 1
 
 # @todod rename to *changed
-signal entity_data_changed(entity_id: int, new_data: Dictionary)
+signal entity_data_changed(entity_id: int, new_data: Dictionary, prev_data: Dictionary)
 signal tag_changed(tag_name: StringName, entity_id: int)
 
 func create_entity_and_register(p_instance: Entity, p_initial_state: Dictionary = {}) -> int:
@@ -75,6 +75,7 @@ func get_entity_data(entity_id: int) -> Dictionary:
 	
 func patch_entity_data(p_entity_id: int, new_kvs: Dictionary) -> void:
 	var data: Dictionary = entity_datas[p_entity_id]
+	var prev_data := data.duplicate(true)
 	for k: StringName in new_kvs:
 		data[k] = new_kvs[k]
-	entity_data_changed.emit(p_entity_id, data)
+	entity_data_changed.emit(p_entity_id, data, prev_data)

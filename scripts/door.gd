@@ -14,7 +14,7 @@ func _ready() -> void:
 		entity_id = entity.entity_id
 	game_state.entity_data_changed.connect(on_gs_data_changed)
 
-func on_gs_data_changed(p_entity_id: int, p_new_data: Dictionary) -> void:
+func on_gs_data_changed(p_entity_id: int, p_new_data: Dictionary, _p_prev_data: Dictionary) -> void:
 	if p_entity_id != entity_id:
 		return
 	
