@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="5_px1b0"]
 [ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="6_6oxeg"]
 [ext_resource type="Script" uid="uid://dsk7hdjgd2400" path="res://test_scenes/swap_chars_test/char_cycle_manager.gd" id="7_axqme"]
+[ext_resource type="Script" uid="uid://crh4img2lhlp6" path="res://test_scenes/lever_test/lever_test_systems.gd" id="8_8hsr2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_scdb6"]
 
@@ -59,3 +60,9 @@ script = ExtResource("7_axqme")
 game_state_node = NodePath("../GameState")
 puppets = [NodePath("../Player")]
 metadata/_custom_type_script = "uid://dsk7hdjgd2400"
+
+[node name="Systems" type="Node" parent="." unique_id=1316836261 node_paths=PackedStringArray("game_state_node", "lever_requirements", "chest")]
+script = ExtResource("8_8hsr2")
+game_state_node = NodePath("../GameState")
+lever_requirements = [NodePath("../Lever")]
+chest = NodePath("../Door")

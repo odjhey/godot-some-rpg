@@ -1,3 +1,4 @@
+# @todo with the move to systems and components, we no longer need a ChestDoor, we just use a Door/Openable
 class_name ChestDoorNode
 extends Node2D
 

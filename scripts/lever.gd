@@ -1,3 +1,4 @@
+class_name LeverNode
 extends Node2D
 
 @export var game_state_node : GameState
