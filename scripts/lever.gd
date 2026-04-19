@@ -18,12 +18,8 @@ func _ready() -> void:
 		})
 		entity_id = entity.entity_id
 
-	entity.visual_update_requested.connect(on_visual_update_requested)
 	interaction_sensor.area_entered.connect(on_area_entered)
 	interaction_sensor.area_exited.connect(on_area_exited)
-
-func on_visual_update_requested(_p_lever_state: int ) -> void:
-	print("lever visual update to ", _p_lever_state)
 
 func on_area_entered(area: InteractionTrigger) -> void:
 	# todo find a way to know if its a player

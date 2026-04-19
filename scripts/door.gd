@@ -12,13 +12,10 @@ func _ready() -> void:
 	if entity_id == 0:
 		entity = DoorEntity.new(game_state, {state = ChestStruct.State.Close})
 		entity_id = entity.entity_id
-	game_state.entity_data_changed.connect(on_gs_data_changed)
+	entity.visual_update_state_changed.connect(on_vizup_state_changed)
 
-func on_gs_data_changed(p_entity_id: int, p_new_data: Dictionary, _p_prev_data: Dictionary) -> void:
-	if p_entity_id != entity_id:
-		return
-	
-	if p_new_data.get("state") == ChestStruct.State.Close:
+func on_vizup_state_changed(state: OpenableComponent.State) -> void:
+	if state == OpenableComponent.State.Close:
 		chest.close()
 	else:
 		chest.open()
