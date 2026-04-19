@@ -18,6 +18,12 @@ func open() -> void:
 func close() -> void:
 	state = State.Close
 	changed.emit()
+func toggle() -> void:
+	if state == State.Open:
+		state = State.Close
+	else:
+		state = State.Open
+	changed.emit()
 
 static func get_c(p_gs: GameStateContext, p_owner_entity_id: int) -> OpenableComponent:
 	return p_gs.get_component_of_owner(p_owner_entity_id, NAME) as OpenableComponent

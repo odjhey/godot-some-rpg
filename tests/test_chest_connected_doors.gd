@@ -22,25 +22,33 @@ func test_door_can_open() -> void:
 		})
 
 	var player := PlayerEntity.new(gs,{})
+	# apparently, this gets freed if we don't keep reference, and the signals won't fire
+	var systems := [OpenIfLinkedActivatedSytem.new(gs, OpenableComponent.get_c(gs, chest_door.entity_id), [
+		ActivateableComponent.get_c(gs, chest1.entity_id),
+		ActivateableComponent.get_c(gs, chest2.entity_id),
+		ActivateableComponent.get_c(gs, chest3.entity_id),
+		ActivateableComponent.get_c(gs, chest4.entity_id),
+		])]
+
 
 	# act on unrelated first
 	player.interact(gs, chest5_not_connected.entity_id)
 	# assert
-	assert_bool(chest_door.is_open()).is_equal(false)
+	assert_bool(OpenableComponent.get_c(gs, chest_door.entity_id).is_open()).is_equal(false)
 
 	# act on 2 first
 	player.interact(gs, chest1.entity_id)
 	player.interact(gs, chest2.entity_id)
 	# assert (not yet)
-	assert_bool(chest_door.is_open()).is_equal(false)
+	assert_bool(OpenableComponent.get_c(gs, chest_door.entity_id).is_open()).is_equal(false)
 
 	# act on all connected
 	player.interact(gs, chest3.entity_id)
 	player.interact(gs, chest4.entity_id)
 	# assert (open!)
-	assert_bool(chest_door.is_open()).is_equal(true)
+	assert_bool(OpenableComponent.get_c(gs, chest_door.entity_id).is_open()).is_equal(true)
 
 	# close the chest
 	player.interact(gs, chest3.entity_id)
 	# assert (closed!)
-	assert_bool(chest_door.is_open()).is_equal(false)
+	assert_bool(OpenableComponent.get_c(gs, chest_door.entity_id).is_open()).is_equal(false)

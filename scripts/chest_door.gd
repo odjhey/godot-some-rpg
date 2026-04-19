@@ -1,3 +1,4 @@
+class_name ChestDoorNode
 extends Node2D
 
 
