@@ -13,6 +13,7 @@ const ACTION_LEFT: StringName = &"move_left"
 const ACTION_RIGHT: StringName = &"move_right"
 const ACTION_JUMP: StringName = &"ui_accept"
 const ACTION_INTERACT: StringName = &"interact"
+const ACTION_BLINK: StringName = &"blink_skill"
 
 func _ready() -> void:
 	game_state = game_state_node.context
@@ -41,6 +42,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed(ACTION_JUMP):
 		active.request_jump()
+	if event.is_action_pressed(ACTION_BLINK):
+		active.request_blink()
 
 	if event.is_action_released(ACTION_INTERACT):
 		active.request_interact()

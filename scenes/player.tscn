@@ -17,6 +17,11 @@ script = ExtResource("1_g2els")
 scale = Vector2(0.71875, 1.453125)
 texture = ExtResource("1_3vyb7")
 
+[node name="Snout" type="Sprite2D" parent="." unique_id=432505826]
+position = Vector2(22, -48)
+scale = Vector2(1, 0.59375)
+texture = ExtResource("1_3vyb7")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1433085187]
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_3vyb7")

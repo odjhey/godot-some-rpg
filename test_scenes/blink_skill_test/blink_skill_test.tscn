@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://by5710gh8x31k"]
+
+[ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="1_e7i4d"]
+[ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="2_nk7xa"]
+[ext_resource type="Script" uid="uid://dsk7hdjgd2400" path="res://test_scenes/swap_chars_test/char_cycle_manager.gd" id="3_n6ij6"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yvqea"]
+
+[node name="BlinkSkillTest" type="Node" unique_id=1686819720]
+
+[node name="GameState" type="Node" parent="." unique_id=266178102]
+script = ExtResource("2_nk7xa")
+metadata/_custom_type_script = "uid://6y1vo6m6hl22"
+
+[node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("1_e7i4d")]
+position = Vector2(198, 314)
+game_state_node = NodePath("../GameState")
+
+[node name="PuppetController" type="Node" parent="." unique_id=58492037 node_paths=PackedStringArray("game_state_node", "puppets")]
+script = ExtResource("3_n6ij6")
+game_state_node = NodePath("../GameState")
+puppets = [NodePath("../Player")]
+metadata/_custom_type_script = "uid://dsk7hdjgd2400"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1291141768]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1234502036]
+position = Vector2(0, 588)
+shape = SubResource("WorldBoundaryShape2D_yvqea")

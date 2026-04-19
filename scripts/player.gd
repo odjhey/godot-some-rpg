@@ -17,7 +17,9 @@ var entity: PlayerEntity
 var is_controlled := false
 var move_input_x := 0.0
 var jump_requested := false
+var blink_requested := false
 var interact_requested := false
+var direction := Vector2.RIGHT
 
 func _ready() -> void:
 	game_state = game_state_node.context
@@ -40,6 +42,9 @@ func set_move_input(p_x: float) -> void:
 func request_jump() -> void:
 	jump_requested = true
 
+func request_blink() -> void:
+	blink_requested = true
+
 func request_interact() -> void:
 	interact_requested = true
 
@@ -54,6 +59,10 @@ func handle_jump() -> void:
 	if jump_requested and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	jump_requested = false
+func handle_blink() -> void:
+	if blink_requested:
+		position.x += 300
+	blink_requested = false
 
 func handle_interact() -> void:
 	if not interact_requested:
@@ -79,6 +88,7 @@ func _physics_process(delta: float) -> void:
 		apply_horizontal_movement()
 		handle_jump()
 		handle_interact()
+		handle_blink()
 	else:
 		velocity.x = 0.0
 
