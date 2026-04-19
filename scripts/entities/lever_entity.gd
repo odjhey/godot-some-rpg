@@ -1,6 +1,8 @@
 class_name LeverEntity
 extends Entity
 
+var c_activateable :=  ActivateableComponent.new()
+
 signal visual_update_requested(state: LeverStruct.State)
 
 func _init(p_game_state: GameStateContext, p_connected_door_entity_id: int, p_initial_state: Dictionary) -> void:
@@ -8,6 +10,9 @@ func _init(p_game_state: GameStateContext, p_connected_door_entity_id: int, p_in
 		connected_door_entity_id = p_connected_door_entity_id
 		}
 	new_state.merge(p_initial_state, true)
+
+	components = [c_activateable]
+
 	super(p_game_state, new_state)
 
 func wire_signals() -> void:
@@ -29,6 +34,7 @@ func on_interact(_from_entity_id: int, to_entity_id: int) -> void:
 		new_data = {state = LeverStruct.State.Activated}
 	game_state.patch_entity_data(entity_id, new_data)
 
+	ActivateableComponent.get_c(game_state, entity_id).toggle()
 
 func on_gs_data_changed(p_entity_id: int, p_new_data: Dictionary, _p_prev_data: Dictionary) -> void:
 	if p_entity_id != entity_id:

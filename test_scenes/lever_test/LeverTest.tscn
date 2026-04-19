@@ -34,6 +34,7 @@ game_state_node = NodePath("../GameState")
 metadata/_custom_type_script = "uid://dis0ciwkd4sy1"
 
 [node name="Chest" parent="Door" unique_id=788818176 instance=ExtResource("2_gjltx")]
+position = Vector2(0, 1)
 
 [node name="Lever" type="Node2D" parent="." unique_id=1238160771 node_paths=PackedStringArray("game_state_node", "connected_door")]
 position = Vector2(-269, 220)

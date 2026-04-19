@@ -9,6 +9,7 @@ var entities : Dictionary[int, bool] = {}
 var entity_datas : Dictionary[int, Dictionary]
 var entity_instances : Dictionary[int, WeakRef] = {}
 var entity_tags : Dictionary[StringName, Dictionary]
+var entity_components : Dictionary[StringName, Dictionary] = {}
 
 # this is not serialize->persist->load safe, because we can't control the sequence
 # we may need another global_uid type of thing to be safer, like "level1/chest1" or something
@@ -58,6 +59,19 @@ func get_entity_tags_by_tag(tag_name: StringName) -> Dictionary:
 	if entity_tags.has(tag_name):
 		return entity_tags[tag_name]
 	return {}
+
+func register_entity_components(owner_entity_id: int, component: BaseComponent) -> void:
+	if not entity_components.has(component.component_name):
+		entity_components[component.component_name] = {}
+	entity_components[component.component_name][owner_entity_id] = component
+func get_component_of_owner(p_owner_entity_id: int, p_component_name: StringName) -> BaseComponent:
+	if not entity_components.has(p_component_name):
+		return null
+	var c := entity_components[p_component_name][p_owner_entity_id] as BaseComponent
+	if c != null:
+		return c
+	return null
+
 
 func untag_entity(tag_name: StringName, source_entity_id:int, entity_id: int) -> void:
 	if not entity_tags.has(tag_name):

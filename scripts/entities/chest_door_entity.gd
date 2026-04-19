@@ -2,6 +2,7 @@ class_name ChestDoorEntity
 extends Entity
 
 signal visual_update_requested(state: ChestStruct.State)
+var c_openable := OpenableComponent.new()
 
 func _init(p_game_state: GameStateContext, p_connected_chests_entity_ids: Array[int], p_initial_state: Dictionary) -> void:
 	var new_state := {
@@ -9,6 +10,14 @@ func _init(p_game_state: GameStateContext, p_connected_chests_entity_ids: Array[
 		}
 	new_state.merge(p_initial_state, true)
 	super(p_game_state, new_state)
+
+	c_openable.changed.connect(on_openable_changed)
+
+func on_openable_changed() -> void:
+	if OpenableComponent.get_c(game_state, entity_id).is_open():
+		visual_update_requested.emit(ChestStruct.State.Open)
+	else:
+		visual_update_requested.emit(ChestStruct.State.Close)
 
 func wire_signals() -> void:
 	game_state.entity_data_changed.connect(on_gs_data_changed)

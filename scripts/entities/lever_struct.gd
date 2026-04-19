@@ -1,6 +1,8 @@
 class_name LeverStruct
 extends RefCounted
 
+# @todo if we move to using components for behaviours, do we still need this?
+
 enum State {Deactivated, Activated}
 var state : State
 var connected_door_entity_id: int
