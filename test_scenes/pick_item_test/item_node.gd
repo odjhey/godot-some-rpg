@@ -5,6 +5,7 @@ extends Node2D
 @export var game_state_node : GameState
 var game_state : GameStateContext
 @onready var pickable_sensor : Area2D = $PickableSensor
+@onready var animation : AnimationPlayer = $AnimationPlayer
 
 var entity: ItemEntity
 
@@ -28,3 +29,8 @@ func on_area_exited(area: InteractionTrigger) -> void:
 	# todo find a way to know if its a player
 	game_state.untag_entity(&"pickable_in_range", area.source_entity_id, entity_id)
 	print("pickable_in_range exited", area.source_entity_id)
+
+func animate_and_free() -> void:
+	animation.play("exit")
+	await animation.animation_finished
+	queue_free()

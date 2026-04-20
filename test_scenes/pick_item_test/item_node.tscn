@@ -6,15 +6,77 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_l4j4c"]
 radius = 57.31492
 
-[node name="ItemNode" type="Node2D" unique_id=531453668 node_paths=PackedStringArray("game_state_node")]
+[sub_resource type="Animation" id="Animation_rhc08"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_3wbbi"]
+resource_name = "exit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.1, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.141592653589793]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rhc08"]
+_data = {
+&"RESET": SubResource("Animation_rhc08"),
+&"exit": SubResource("Animation_3wbbi")
+}
+
+[node name="ItemNode" type="Node2D" unique_id=531453668]
 script = ExtResource("1_3wbbi")
-game_state_node = NodePath("")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=74996480]
-scale = Vector2(0.28125, 0.28125)
 texture = ExtResource("2_rhc08")
 
 [node name="PickableSensor" type="Area2D" parent="." unique_id=1200491828]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickableSensor" unique_id=26353737]
 shape = SubResource("CircleShape2D_l4j4c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1758383869]
+libraries/ = SubResource("AnimationLibrary_rhc08")
