@@ -1,0 +1,2 @@
+- [ ] rename game_state to world or something
+- [ ] remove the need to assign game_state for each node

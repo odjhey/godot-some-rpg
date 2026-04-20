@@ -4,6 +4,11 @@ extends CharacterBody2D
 const JUMP_VELOCITY := -1500.0
 const SPEED := 300.0
 
+# @todos
+# - add dash or blink
+# - add run increase speed, means jump farther if enough speed
+# - doubl jumps?
+
 @export var game_state_node: GameState
 @onready var interaction_trigger : InteractionTrigger = $InteractionTrigger
 

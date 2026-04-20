@@ -15,7 +15,6 @@ var entity_components : Dictionary[StringName, Dictionary] = {}
 # we may need another global_uid type of thing to be safer, like "level1/chest1" or something
 var next_entity_id : int = 1
 
-# @todod rename to *changed
 signal entity_data_changed(entity_id: int, new_data: Dictionary, prev_data: Dictionary)
 signal tag_changed(tag_name: StringName, source_entity_id: int, entity_id: int)
 
@@ -44,8 +43,7 @@ func erase_entity(entity_id: int) -> void:
 	for tag_name: StringName in entity_tags.keys():
 		entity_tags[tag_name].erase(entity_id)
 
-# @todo, for relationships like &"in_range", we may want the player to own so entity_tags[tag_name][player][entity_id] = { data }
-# @todo, is this final? do all tags require a source_entity_id?
+# @todo, is this final? do all tags require a source_entity_id? do we need to change this to entity_relations instead?
 func tag_entity(tag_name: StringName, source_entity_id: int, entity_id: int) -> void:
 	if not entity_tags.has(tag_name):
 		entity_tags[tag_name] = {}
