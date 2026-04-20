@@ -17,6 +17,7 @@ var next_entity_id : int = 1
 
 signal entity_data_changed(entity_id: int, new_data: Dictionary, prev_data: Dictionary)
 signal tag_changed(tag_name: StringName, source_entity_id: int, entity_id: int)
+signal tag_removed(tag_name: StringName, source_entity_id: int, entity_id: int)
 
 func create_entity_and_register(p_instance: Entity, p_initial_state: Dictionary = {}) -> int:
 	var entity_id := create_entity(p_initial_state)
@@ -62,13 +63,12 @@ func register_entity_components(owner_entity_id: int, component: BaseComponent) 
 	if not entity_components.has(component.component_name):
 		entity_components[component.component_name] = {}
 	entity_components[component.component_name][owner_entity_id] = component
-func get_component_of_owner(p_owner_entity_id: int, p_component_name: StringName) -> BaseComponent:
-	if not entity_components.has(p_component_name):
-		return null
-	var c := entity_components[p_component_name][p_owner_entity_id] as BaseComponent
-	if c != null:
-		return c
-	return null
+func get_component_of_owner(
+	p_owner_entity_id: int,
+	p_component_name: StringName
+) -> BaseComponent:
+	var bucket: Dictionary = entity_components.get(p_component_name, {})
+	return bucket.get(p_owner_entity_id)
 
 
 func untag_entity(tag_name: StringName, source_entity_id:int, entity_id: int) -> void:
@@ -78,7 +78,7 @@ func untag_entity(tag_name: StringName, source_entity_id:int, entity_id: int) ->
 		return
 	var tags : Dictionary = entity_tags[tag_name][source_entity_id]
 	tags.erase(entity_id)
-	tag_changed.emit(tag_name, source_entity_id, entity_id)
+	tag_removed.emit(tag_name, source_entity_id, entity_id)
 
 # see if we can even create signals as a wrapper of game state, to keep this pure data
 # this should be extracted, as this i think is not needed to be "serialized" for saving and thus should not be in the game_state? but then again, &"in_range" is not needed to be saved tho, hmmm

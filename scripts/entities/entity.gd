@@ -24,4 +24,3 @@ func on_interact(_from_entity_id: int, to_entity_id: int) -> void:
 	if (to_entity_id != entity_id):
 		return
 	push_warning("Interacting on something that is not interactable: [entity_id]=", entity_id)
-

@@ -36,6 +36,7 @@ func on_interact(_from_entity_id: int, to_entity_id: int) -> void:
 # @override
 func wire_signals() -> void:
 	game_state.tag_changed.connect(on_tag_changed)
+	game_state.tag_removed.connect(on_tag_changed)
 
 func on_tag_changed(tag_name: StringName, source_entity_id: int, _changed_entity_id: int) -> void:
 	if tag_name != &"in_player_range":

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dullpyqcb10kx"]
+
+[ext_resource type="Script" uid="uid://ci7dvv4obml37" path="res://test_scenes/pick_item_test/item_node.gd" id="1_3wbbi"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_rhc08"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l4j4c"]
+radius = 57.31492
+
+[node name="ItemNode" type="Node2D" unique_id=531453668 node_paths=PackedStringArray("game_state_node")]
+script = ExtResource("1_3wbbi")
+game_state_node = NodePath("")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=74996480]
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("2_rhc08")
+
+[node name="PickableSensor" type="Area2D" parent="." unique_id=1200491828]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickableSensor" unique_id=26353737]
+shape = SubResource("CircleShape2D_l4j4c")

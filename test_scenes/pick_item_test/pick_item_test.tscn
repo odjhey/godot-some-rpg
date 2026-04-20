@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://0ytghf85nyxg"]
+
+[ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="1_i5a45"]
+[ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="2_5c7pb"]
+[ext_resource type="Script" uid="uid://dsk7hdjgd2400" path="res://test_scenes/swap_chars_test/char_cycle_manager.gd" id="3_t0hvq"]
+[ext_resource type="PackedScene" uid="uid://dullpyqcb10kx" path="res://test_scenes/pick_item_test/item_node.tscn" id="4_dcctm"]
+[ext_resource type="Script" uid="uid://dq1lj1ecj6j6p" path="res://test_scenes/pick_item_test/systems.gd" id="6_8xay2"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_45iml"]
+
+[node name="PickItemTest" type="Node" unique_id=86846941]
+
+[node name="GameState" type="Node" parent="." unique_id=526845274]
+script = ExtResource("1_i5a45")
+metadata/_custom_type_script = "uid://6y1vo6m6hl22"
+
+[node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("2_5c7pb")]
+position = Vector2(249, 170)
+game_state_node = NodePath("../GameState")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=734873848]
+position = Vector2(0, 594)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=448464771]
+shape = SubResource("WorldBoundaryShape2D_45iml")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=189348390]
+position = Vector2(546, 322)
+
+[node name="PuppetController" type="Node" parent="." unique_id=2055277778 node_paths=PackedStringArray("game_state_node", "puppets")]
+script = ExtResource("3_t0hvq")
+game_state_node = NodePath("../GameState")
+puppets = [NodePath("../Player")]
+metadata/_custom_type_script = "uid://dsk7hdjgd2400"
+
+[node name="ItemNode" parent="." unique_id=531453668 node_paths=PackedStringArray("game_state_node") instance=ExtResource("4_dcctm")]
+position = Vector2(563, 534)
+game_state_node = NodePath("../GameState")
+
+[node name="ItemNode2" parent="." unique_id=330079467 node_paths=PackedStringArray("game_state_node") instance=ExtResource("4_dcctm")]
+position = Vector2(826, 402)
+game_state_node = NodePath("../GameState")
+
+[node name="ItemNode3" parent="." unique_id=1141689796 node_paths=PackedStringArray("game_state_node") instance=ExtResource("4_dcctm")]
+position = Vector2(507, 82)
+game_state_node = NodePath("../GameState")
+
+[node name="Systems" type="Node" parent="." unique_id=1586412858 node_paths=PackedStringArray("game_state_node", "players")]
+script = ExtResource("6_8xay2")
+game_state_node = NodePath("../GameState")
+players = [NodePath("../Player")]
