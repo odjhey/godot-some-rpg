@@ -8,7 +8,7 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_45iml"]
 
-[node name="PickItemTest" type="Node" unique_id=86846941]
+[node name="InventoryTest" type="Node" unique_id=86846941]
 
 [node name="GameState" type="Node" parent="." unique_id=526845274]
 script = ExtResource("1_iim32")
@@ -16,6 +16,10 @@ metadata/_custom_type_script = "uid://6y1vo6m6hl22"
 
 [node name="Player" parent="." unique_id=852858117 node_paths=PackedStringArray("game_state_node") instance=ExtResource("2_al8wu")]
 position = Vector2(897, 462)
+game_state_node = NodePath("../GameState")
+
+[node name="Player2" parent="." unique_id=2124256159 node_paths=PackedStringArray("game_state_node") instance=ExtResource("2_al8wu")]
+position = Vector2(0, 276)
 game_state_node = NodePath("../GameState")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=734873848]
@@ -30,7 +34,7 @@ position = Vector2(546, 322)
 [node name="PuppetController" type="Node" parent="." unique_id=2055277778 node_paths=PackedStringArray("game_state_node", "puppets")]
 script = ExtResource("3_fk86j")
 game_state_node = NodePath("../GameState")
-puppets = [NodePath("../Player")]
+puppets = [NodePath("../Player"), NodePath("../Player2")]
 metadata/_custom_type_script = "uid://dsk7hdjgd2400"
 
 [node name="Systems" type="Node" parent="." unique_id=1586412858 node_paths=PackedStringArray("game_state_node", "players")]
@@ -48,4 +52,12 @@ game_state_node = NodePath("../GameState")
 
 [node name="ItemNode3" parent="." unique_id=1546502932 node_paths=PackedStringArray("game_state_node") instance=ExtResource("5_4heqv")]
 position = Vector2(528, 294)
+game_state_node = NodePath("../GameState")
+
+[node name="ItemNode4" parent="." unique_id=157680405 node_paths=PackedStringArray("game_state_node") instance=ExtResource("5_4heqv")]
+position = Vector2(1002, 94)
+game_state_node = NodePath("../GameState")
+
+[node name="ItemNode5" parent="." unique_id=25473422 node_paths=PackedStringArray("game_state_node") instance=ExtResource("5_4heqv")]
+position = Vector2(226, 136)
 game_state_node = NodePath("../GameState")

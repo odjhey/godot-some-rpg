@@ -75,7 +75,7 @@ func handle_blink() -> void:
 func handle_inventory() -> void:
 	if not inventory_requested:
 		return
-	print("inventory open")
+	print("inventory open", entity.c_inventory.get_contents())
 	inventory_requested = false
 
 func handle_interact() -> void:
