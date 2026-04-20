@@ -10,10 +10,7 @@ var autopick_system : AutopickNearbySystem
 
 func _ready() -> void:
 	game_state = game_state_node.context
-	var c_looters: Array[LooterComponent] = []
-	for p in players:
-		c_looters.append(p.entity.c_looter)
-	autopick_system = AutopickNearbySystem.new(game_state, c_looters)
+	autopick_system = AutopickNearbySystem.new(game_state)
 	autopick_system.picked.connect(on_item_picked)
 
 func on_item_picked(_p_by: int, p_entity_id: int) -> void:

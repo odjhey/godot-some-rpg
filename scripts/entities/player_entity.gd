@@ -2,9 +2,10 @@ class_name PlayerEntity
 extends Entity
 
 var c_looter := LooterComponent.new()
+var c_inventory := InventoryComponent.new()
 
 func _init(p_game_state: GameStateContext, p_initial_state: Dictionary) -> void:
-	components = [c_looter]
+	components = [c_looter, c_inventory]
 	super(p_game_state, p_initial_state)
 
 func interact(p_game_state: GameStateContext, p_target_entity_id: int) -> void:
