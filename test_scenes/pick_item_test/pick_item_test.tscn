@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="1_i5a45"]
 [ext_resource type="PackedScene" uid="uid://cl6elbrhm76vt" path="res://scenes/player.tscn" id="2_5c7pb"]
 [ext_resource type="Script" uid="uid://dsk7hdjgd2400" path="res://test_scenes/swap_chars_test/char_cycle_manager.gd" id="3_t0hvq"]
-[ext_resource type="PackedScene" uid="uid://dullpyqcb10kx" path="res://test_scenes/pick_item_test/item_node.tscn" id="4_dcctm"]
+[ext_resource type="PackedScene" uid="uid://dullpyqcb10kx" path="res://scenes/item_node.tscn" id="4_dcctm"]
 [ext_resource type="Script" uid="uid://dq1lj1ecj6j6p" path="res://test_scenes/pick_item_test/systems.gd" id="6_8xay2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_45iml"]

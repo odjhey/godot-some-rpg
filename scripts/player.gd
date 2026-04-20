@@ -24,6 +24,7 @@ var move_input_x := 0.0
 var jump_requested := false
 var blink_requested := false
 var interact_requested := false
+var inventory_requested := false
 var direction := Vector2.RIGHT
 
 func _ready() -> void:
@@ -52,6 +53,8 @@ func request_blink() -> void:
 
 func request_interact() -> void:
 	interact_requested = true
+func request_inventory() -> void:
+	inventory_requested = true
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -68,6 +71,12 @@ func handle_blink() -> void:
 	if blink_requested:
 		position.x += 300
 	blink_requested = false
+
+func handle_inventory() -> void:
+	if not inventory_requested:
+		return
+	print("inventory open")
+	inventory_requested = false
 
 func handle_interact() -> void:
 	if not interact_requested:
@@ -94,6 +103,7 @@ func _physics_process(delta: float) -> void:
 		handle_jump()
 		handle_interact()
 		handle_blink()
+		handle_inventory()
 	else:
 		velocity.x = 0.0
 

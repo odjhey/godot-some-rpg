@@ -14,6 +14,7 @@ const ACTION_RIGHT: StringName = &"move_right"
 const ACTION_JUMP: StringName = &"ui_accept"
 const ACTION_INTERACT: StringName = &"interact"
 const ACTION_BLINK: StringName = &"blink_skill"
+const ACTION_INVENTORY: StringName = &"inventory"
 
 func _ready() -> void:
 	game_state = game_state_node.context
@@ -47,6 +48,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_released(ACTION_INTERACT):
 		active.request_interact()
+	if event.is_action_released(ACTION_INVENTORY):
+		active.request_inventory()
 
 func _physics_process(_delta: float) -> void:
 	var active := get_active_puppet()
