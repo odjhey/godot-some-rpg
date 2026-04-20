@@ -3,7 +3,6 @@ extends Node2D
 
 @export var game_state_node : GameState
 var game_state : GameStateContext
-@export var connected_door : Door
 @onready var interaction_sensor : Area2D = $InteractionSensor
 @export var entity_id : int
 var entity: LeverEntity
@@ -11,11 +10,7 @@ var entity: LeverEntity
 func _ready() -> void:
 	game_state = game_state_node.context
 	if entity_id == 0:
-		entity = LeverEntity.new(game_state, 
-		connected_door.entity_id,
-		{
-			state = LeverStruct.State.Deactivated,
-		})
+		entity = LeverEntity.new(game_state, ActivateableComponent.State.Deactivated)
 		entity_id = entity.entity_id
 
 	interaction_sensor.area_entered.connect(on_area_entered)

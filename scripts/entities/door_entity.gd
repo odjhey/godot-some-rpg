@@ -15,9 +15,3 @@ func _init(p_game_state: GameStateContext, p_initial_state: Dictionary) -> void:
 	c_openable.changed.connect(func() -> void:
 		visual_update_state_changed.emit(c_openable.state)
 	)
-
-func is_open() -> bool:
-	var data := game_state.get_entity_data(entity_id)
-	return data.get("state") == ChestStruct.State.Open
-
-

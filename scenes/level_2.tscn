@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cbflrfaf28rl8" path="res://scenes/chest_node.tscn" id="3_eqxsl"]
 [ext_resource type="Script" uid="uid://6y1vo6m6hl22" path="res://scripts/game_state_node.gd" id="3_pbc48"]
 [ext_resource type="Script" uid="uid://dsk7hdjgd2400" path="res://test_scenes/swap_chars_test/char_cycle_manager.gd" id="3_wo48x"]
-[ext_resource type="Script" uid="uid://d2v0ra47iwli1" path="res://scripts/chest_door.gd" id="4_b4j7a"]
+[ext_resource type="Script" uid="uid://dis0ciwkd4sy1" path="res://scripts/door.gd" id="5_wo48x"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y4x0y"]
 
@@ -47,16 +47,16 @@ game_state_node = NodePath("../GameState")
 position = Vector2(452, 504)
 game_state_node = NodePath("../GameState")
 
-[node name="ChestDoor" type="Node2D" parent="." unique_id=1237589808 node_paths=PackedStringArray("game_state_node", "chest_interests")]
-position = Vector2(846, 480)
-script = ExtResource("4_b4j7a")
+[node name="Door" type="Node2D" parent="." unique_id=1018935446 node_paths=PackedStringArray("game_state_node")]
+position = Vector2(850, 430)
+script = ExtResource("5_wo48x")
 game_state_node = NodePath("../GameState")
-chest_interests = [NodePath("../ChestEntity"), NodePath("../ChestEntity2"), NodePath("../ChestEntity3")]
+metadata/_custom_type_script = "uid://dis0ciwkd4sy1"
 
-[node name="Chest" parent="ChestDoor" unique_id=788818176 instance=ExtResource("2_pbc48")]
+[node name="Chest" parent="Door" unique_id=788818176 instance=ExtResource("2_pbc48")]
 
 [node name="Systems" type="Node" parent="." unique_id=525250692 node_paths=PackedStringArray("game_state_node", "chests_requirements", "chest")]
 script = ExtResource("2_y0kc7")
 game_state_node = NodePath("../GameState")
 chests_requirements = [NodePath("../ChestEntity"), NodePath("../ChestEntity2"), NodePath("../ChestEntity3")]
-chest = NodePath("../ChestDoor")
+chest = NodePath("../Door")

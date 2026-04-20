@@ -12,12 +12,7 @@ func test_door_can_open() -> void:
 	var chest3 := ChestEntity.new(gs, default_chest_state)
 	var chest4 := ChestEntity.new(gs, default_chest_state)
 	var chest5_not_connected := ChestEntity.new(gs, default_chest_state)
-	var chest_door := ChestDoorEntity.new(gs, [
-		chest1.entity_id,
-		chest2.entity_id,
-		chest3.entity_id,
-		chest4.entity_id,
-		], {
+	var chest_door := DoorEntity.new(gs, {
 			state = ChestStruct.State.Close
 		})
 

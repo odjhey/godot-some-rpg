@@ -15,6 +15,9 @@ func is_activated() -> bool:
 func activate() -> void:
 	state = State.Activated
 	changed.emit()
+func deactivate() -> void:
+	state = State.Deactivated
+	changed.emit()
 func toggle() -> void:
 	if state == State.Activated:
 		state = State.Deactivated

@@ -6,7 +6,7 @@ var game_state: GameStateContext
 
 var gs : GameStateContext
 @export var chests_requirements : Array[ChestNode]
-@export var chest : ChestDoorNode
+@export var chest : Door
 
 var open_chest_system : OpenIfLinkedActivatedSytem
 
